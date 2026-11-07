@@ -101,6 +101,7 @@ def generate_markdown_report(
     short_fp: str,
     reused_count: int,
     stale_count: int,
+    run_num: int = 1,
 ) -> str:
     completed_cases = [r for r in run_results if r["error"] is None]
     errored_cases = [r for r in run_results if r["error"] is not None]
@@ -163,7 +164,7 @@ def generate_markdown_report(
 
     timestamp_str = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
 
-    run_title = "## Run 1 (Aborted - Invalid)" if error_count > 0 or completed_count < total_scenarios else "## Run 1"
+    run_title = f"## Run {run_num} (Aborted - Invalid)" if error_count > 0 or completed_count < total_scenarios else f"## Run {run_num}"
 
     reused_desc = f"{reused_count} traces reused"
     if stale_count > 0:
@@ -171,9 +172,7 @@ def generate_markdown_report(
     elif reused_count == 0:
         reused_desc = "None (fresh run)"
 
-    markdown_report = f"""# Evaluation Results
-
-{run_title}
+    markdown_report = f"""{run_title}
 - **Timestamp:** {timestamp_str}
 - **Model:** `{GEMINI_MODEL}`
 - **Fingerprint:** `{short_fp}`
@@ -353,6 +352,16 @@ def main() -> None:
                 print("Aborting further evaluation due to daily quota exhaustion.")
                 break
 
+    # Determine run number and preserve previous runs in RESULTS_FILE
+    import re
+    run_num = 1
+    existing_content = ""
+    if RESULTS_FILE.exists():
+        existing_content = RESULTS_FILE.read_text(encoding="utf-8")
+        run_matches = re.findall(r"^## Run (\d+)", existing_content, flags=re.MULTILINE)
+        if run_matches:
+            run_num = max(int(m) for m in run_matches) + 1
+
     report = generate_markdown_report(
         run_results,
         len(scenarios),
@@ -360,9 +369,16 @@ def main() -> None:
         short_fp,
         reused_count,
         stale_count,
+        run_num=run_num,
     )
+
+    if run_num == 1 or not existing_content.strip():
+        final_file_text = "# Evaluation Results\n\n" + report
+    else:
+        final_file_text = existing_content.rstrip() + "\n\n---\n\n" + report
+
     with open(RESULTS_FILE, "w", encoding="utf-8") as rf:
-        rf.write(report)
+        rf.write(final_file_text)
 
     print("\n" + "=" * 50)
     print(report)

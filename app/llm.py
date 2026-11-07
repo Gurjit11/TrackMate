@@ -12,7 +12,7 @@ _last_call_timestamp: float = 0.0
 
 def pace_llm_call() -> None:
     global _last_call_timestamp
-    min_gap = float(os.getenv("EVAL_MIN_GAP_SECONDS", "13.0"))
+    min_gap = float(os.getenv("EVAL_MIN_GAP_SECONDS", "0"))
     if min_gap > 0 and _last_call_timestamp > 0:
         elapsed = time.time() - _last_call_timestamp
         if elapsed < min_gap:
