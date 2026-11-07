@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" class="dark scroll-smooth">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TrackMate — Autonomous Delivery Investigation Platform</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -39,66 +42,85 @@
       font-feature-settings: "cv02", "cv03", "cv04", "cv11";
       overflow-x: hidden;
     }
+
     .bg-grid-pattern {
       background-size: 40px 40px;
-      background-image: 
+      background-image:
         linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
         linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
     }
+
     .glass-panel {
       background: rgba(13, 20, 36, 0.78);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border: 1px solid rgba(255, 255, 255, 0.08);
     }
+
     .glass-card {
       background: rgba(26, 36, 56, 0.5);
       backdrop-filter: blur(12px);
       border: 1px solid rgba(255, 255, 255, 0.06);
     }
+
     .glow-indigo {
       box-shadow: 0 0 50px -10px rgba(99, 102, 241, 0.35);
     }
+
     .glow-emerald {
       box-shadow: 0 0 40px -10px rgba(16, 185, 129, 0.35);
     }
+
     .glow-rose {
       box-shadow: 0 0 40px -10px rgba(244, 63, 94, 0.35);
     }
+
     .glow-amber {
       box-shadow: 0 0 40px -10px rgba(245, 158, 11, 0.35);
     }
+
     .text-gradient {
       background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #818cf8 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
+
     .text-gradient-purple {
       background: linear-gradient(135deg, #c084fc 0%, #818cf8 50%, #38bdf8 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
+
     ::-webkit-scrollbar {
       width: 8px;
       height: 8px;
     }
+
     ::-webkit-scrollbar-track {
       background: #080c14;
     }
+
     ::-webkit-scrollbar-thumb {
       background: rgba(255, 255, 255, 0.15);
       border-radius: 4px;
     }
+
     ::-webkit-scrollbar-thumb:hover {
       background: rgba(255, 255, 255, 0.25);
     }
 
     @keyframes shine {
-      0%   { background-position: -200% center; }
-      100% { background-position:  200% center; }
+      0% {
+        background-position: -200% center;
+      }
+
+      100% {
+        background-position: 200% center;
+      }
     }
+
     .shine-text {
-      background: linear-gradient(90deg,#a78bfa 0%,#818cf8 20%,#38bdf8 40%,#fff 60%,#818cf8 80%,#a78bfa 100%);
+      background: linear-gradient(90deg, #a78bfa 0%, #818cf8 20%, #38bdf8 40%, #fff 60%, #818cf8 80%, #a78bfa 100%);
       background-size: 200% auto;
       color: transparent;
       -webkit-background-clip: text;
@@ -106,10 +128,29 @@
       animation: shine 3.5s linear infinite;
       font-weight: 800;
       letter-spacing: 0.025em;
-      filter: drop-shadow(0 0 12px rgba(167,139,250,0.45));
+      filter: drop-shadow(0 0 12px rgba(167, 139, 250, 0.45));
+    }
+
+    @keyframes wfDash {
+      to {
+        stroke-dashoffset: -24;
+      }
+    }
+
+    .wf-flow {
+      stroke-dasharray: 4 8;
+      animation: wfDash 1.2s linear infinite;
+      opacity: 0.55;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .wf-flow {
+        animation: none;
+      }
     }
   </style>
 </head>
+
 <body class="min-h-screen flex flex-col font-sans selection:bg-indigo-500 selection:text-white bg-grid-pattern">
 
   <!-- ========================================================================= -->
@@ -118,25 +159,30 @@
   <header class="sticky top-0 z-50 glass-panel border-b border-slate-800/80 w-full">
     <div class="w-full px-4 sm:px-6 lg:px-10">
       <div class="flex items-center justify-between h-16">
-        
+
         <!-- Logo & Brand Badge -->
         <div class="flex items-center space-x-3 cursor-pointer" onclick="goToHome()">
-          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-purple-500 flex items-center justify-center shadow-lg shadow-indigo-500/30">
+          <div
+            class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-purple-500 flex items-center justify-center shadow-lg shadow-indigo-500/30">
             <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
             </svg>
           </div>
           <div>
             <div class="flex items-center space-x-2">
               <span class="text-xl font-extrabold tracking-tight text-white">TrackMate</span>
-              <span id="nav-mode-badge" class="px-2 py-0.5 text-[10px] font-bold tracking-wide uppercase rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/20">Consumer Portal</span>
+              <span id="nav-mode-badge"
+                class="px-2 py-0.5 text-[10px] font-bold tracking-wide uppercase rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/20">Consumer
+                Portal</span>
             </div>
             <p id="nav-subtitle" class="text-[10px] text-slate-400">Autonomous Delivery Intelligence Platform</p>
           </div>
         </div>
 
         <!-- USER MODE NAVIGATION LINKS (Visible in User Mode) -->
-        <nav id="user-nav-links" style="display:flex;" class="items-center space-x-6 text-xs font-semibold text-slate-300">
+        <nav id="user-nav-links" style="display:flex;"
+          class="items-center space-x-6 text-xs font-semibold text-slate-300">
           <a href="#tracking-section" class="hover:text-indigo-400 transition-colors">Live Tracking</a>
           <a href="#how-it-works-section" class="hover:text-indigo-400 transition-colors">How It Works</a>
           <a href="#architecture-section" class="hover:text-indigo-400 transition-colors">Agent Flow</a>
@@ -145,33 +191,52 @@
 
         <!-- DEVELOPER MODE TABS (Visible only in Developer Mode) -->
         <nav id="dev-nav-tabs" style="display:none;" class="items-center space-x-1">
-          <button onclick="switchDevTab('investigate')" id="tab-btn-investigate" class="dev-nav-tab px-3 py-1.5 text-xs font-semibold rounded-lg transition-all text-white bg-indigo-600/40 border border-indigo-500/50 shadow-sm">
+          <button onclick="switchDevTab('investigate')" id="tab-btn-investigate"
+            class="dev-nav-tab px-3 py-1.5 text-xs font-semibold rounded-lg transition-all text-white bg-indigo-600/40 border border-indigo-500/50 shadow-sm">
             <span class="flex items-center space-x-1.5">
-              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
               <span>Agent Studio</span>
             </span>
           </button>
-          <button onclick="switchDevTab('shipments')" id="tab-btn-shipments" class="dev-nav-tab px-3 py-1.5 text-xs font-semibold rounded-lg transition-all text-slate-400 hover:text-white hover:bg-slate-800/60">
+          <button onclick="switchDevTab('shipments')" id="tab-btn-shipments"
+            class="dev-nav-tab px-3 py-1.5 text-xs font-semibold rounded-lg transition-all text-slate-400 hover:text-white hover:bg-slate-800/60">
             <span class="flex items-center space-x-1.5">
-              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+              </svg>
               <span>Shipments Hub</span>
             </span>
           </button>
-          <button onclick="switchDevTab('weather')" id="tab-btn-weather" class="dev-nav-tab px-3 py-1.5 text-xs font-semibold rounded-lg transition-all text-slate-400 hover:text-white hover:bg-slate-800/60">
+          <button onclick="switchDevTab('weather')" id="tab-btn-weather"
+            class="dev-nav-tab px-3 py-1.5 text-xs font-semibold rounded-lg transition-all text-slate-400 hover:text-white hover:bg-slate-800/60">
             <span class="flex items-center space-x-1.5">
-              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 00-9.78 2.096A4.001 4.001 0 003 15z"/></svg>
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 00-9.78 2.096A4.001 4.001 0 003 15z" />
+              </svg>
               <span>Weather (M5)</span>
             </span>
           </button>
-          <button onclick="switchDevTab('policies')" id="tab-btn-policies" class="dev-nav-tab px-3 py-1.5 text-xs font-semibold rounded-lg transition-all text-slate-400 hover:text-white hover:bg-slate-800/60">
+          <button onclick="switchDevTab('policies')" id="tab-btn-policies"
+            class="dev-nav-tab px-3 py-1.5 text-xs font-semibold rounded-lg transition-all text-slate-400 hover:text-white hover:bg-slate-800/60">
             <span class="flex items-center space-x-1.5">
-              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+              </svg>
               <span>Policy RAG</span>
             </span>
           </button>
-          <button onclick="switchDevTab('traces')" id="tab-btn-traces" class="dev-nav-tab px-3 py-1.5 text-xs font-semibold rounded-lg transition-all text-slate-400 hover:text-white hover:bg-slate-800/60">
+          <button onclick="switchDevTab('traces')" id="tab-btn-traces"
+            class="dev-nav-tab px-3 py-1.5 text-xs font-semibold rounded-lg transition-all text-slate-400 hover:text-white hover:bg-slate-800/60">
             <span class="flex items-center space-x-1.5">
-              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
               <span>Audit & Traces</span>
             </span>
           </button>
@@ -179,34 +244,31 @@
 
         <!-- Right Side: Mode Switcher Pill & Live Indicator -->
         <div class="flex items-center space-x-3">
-          
+
           <!-- MODE SELECTOR TOGGLE -->
           <div class="flex items-center p-1 rounded-xl bg-slate-900/90 border border-slate-700/80 shadow-inner">
-            <button 
-              id="mode-btn-user" 
-              onclick="setAppMode('user')" 
+            <button id="mode-btn-user" onclick="setAppMode('user')"
               class="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all bg-indigo-600 text-white shadow"
-              title="Consumer Showcase Landing Page & Live Tracker"
-            >
+              title="Consumer Showcase Landing Page & Live Tracker">
               <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
               </svg>
               <span>User Mode</span>
             </button>
-            <button 
-              id="mode-btn-dev" 
-              onclick="setAppMode('dev')" 
+            <button id="mode-btn-dev" onclick="setAppMode('dev')"
               class="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all text-slate-400 hover:text-white"
-              title="Developer Mission Control: Guardrails, Traces, Vector Chunks, Latencies"
-            >
+              title="Developer Mission Control: Guardrails, Traces, Vector Chunks, Latencies">
               <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
               </svg>
               <span>Developer Mode</span>
             </button>
           </div>
 
-          <div class="hidden sm:flex items-center space-x-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[11px] font-mono">
+          <div
+            class="hidden sm:flex items-center space-x-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[11px] font-mono">
             <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
             <span>Online</span>
           </div>
@@ -221,40 +283,53 @@
   <!-- 1. GRAND USER MODE: PRODUCTION LANDING PAGE & CONSUMER TRACKER -->
   <!-- ========================================================================= -->
   <div id="user-mode-container" class="space-y-24 pb-20">
-    
+
     <!-- HERO SECTION -->
     <section class="relative pt-16 sm:pt-24 pb-12 overflow-hidden">
-      
+
       <!-- Glowing background orbs -->
-      <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-gradient-to-tr from-indigo-600/20 via-purple-600/15 to-transparent rounded-full blur-3xl pointer-events-none"></div>
+      <div
+        class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-gradient-to-tr from-indigo-600/20 via-purple-600/15 to-transparent rounded-full blur-3xl pointer-events-none">
+      </div>
 
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-6">
-        
+
         <!-- Enterprise Tag -->
-        <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/25 text-indigo-300 text-xs font-semibold tracking-wide shadow-sm">
+        <div
+          class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/25 text-indigo-300 text-xs font-semibold tracking-wide shadow-sm">
           <span class="w-2 h-2 rounded-full bg-indigo-400 animate-ping"></span>
           <span>Next-Generation Autonomous Logistics Triaging</span>
         </div>
 
         <!-- Main Title -->
-        <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white max-w-4xl mx-auto leading-tight sm:leading-none">
-          Autonomous Delivery Resolution <br/>
+        <h1
+          class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white max-w-4xl mx-auto leading-tight sm:leading-none">
+          Autonomous Delivery Resolution <br />
           <span class="text-gradient-purple">At Enterprise Scale.</span>
         </h1>
 
         <!-- Subheading -->
         <p class="text-slate-400 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
-          Instant package tracking, proactive weather correlation, and deterministic policy resolution. TrackMate resolves delivery exceptions in seconds, guaranteed by 5 verified python guardrails.
+          Instant package tracking, proactive weather correlation, and deterministic policy resolution. TrackMate
+          resolves delivery exceptions in seconds, guaranteed by 5 verified python guardrails.
         </p>
 
         <!-- CTA Action Buttons -->
         <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-          <a href="#tracking-section" class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-gradient-to-r from-indigo-600 via-indigo-500 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold text-sm shadow-xl shadow-indigo-500/25 transition-all flex items-center justify-center space-x-2 cursor-pointer">
-            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+          <a href="#tracking-section"
+            class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-gradient-to-r from-indigo-600 via-indigo-500 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold text-sm shadow-xl shadow-indigo-500/25 transition-all flex items-center justify-center space-x-2 cursor-pointer">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
             <span>Track a Package Now</span>
           </a>
-          <button onclick="setAppMode('dev')" class="w-full sm:w-auto px-6 py-3.5 rounded-xl glass-card hover:bg-slate-800/80 text-slate-200 font-semibold text-sm border border-slate-700 transition-all flex items-center justify-center space-x-2 cursor-pointer">
-            <svg class="w-4 h-4 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+          <button onclick="setAppMode('dev')"
+            class="w-full sm:w-auto px-6 py-3.5 rounded-xl glass-card hover:bg-slate-800/80 text-slate-200 font-semibold text-sm border border-slate-700 transition-all flex items-center justify-center space-x-2 cursor-pointer">
+            <svg class="w-4 h-4 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+            </svg>
             <span>Open Developer Console</span>
           </button>
         </div>
@@ -284,46 +359,38 @@
 
     <!-- LIVE TRACKING PORTAL (INTERACTIVE SECTION) -->
     <section id="tracking-section" class="max-w-4xl mx-auto px-4 sm:px-6 scroll-mt-24 space-y-8">
-      
+
       <div class="text-center space-y-2">
         <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Live Package Tracker</h2>
-        <p class="text-slate-400 text-xs sm:text-sm">Query any package by tracking number to get real-time state and autonomous resolution.</p>
+        <p class="text-slate-400 text-xs sm:text-sm">Query any package by tracking number to get real-time state and
+          autonomous resolution.</p>
       </div>
 
       <!-- Tracking Search Card -->
       <div class="glass-panel rounded-2xl p-6 sm:p-8 space-y-6 glow-indigo border border-indigo-500/30">
         <form onsubmit="handleUserTrackingSubmit(event)" class="space-y-4">
-          
+
           <div>
             <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Tracking Number</label>
             <div class="relative">
-              <input 
-                type="text" 
-                id="user-input-tracking" 
-                placeholder="e.g. TM1018, TM1001, TM1006, TM1011"
+              <input type="text" id="user-input-tracking" placeholder="e.g. TM1018, TM1001, TM1006, TM1011"
                 class="w-full bg-slate-950/90 border border-slate-700 rounded-xl px-5 py-4 font-mono text-base text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/25 uppercase font-semibold transition-all shadow-inner"
-                required
-              />
-              <button 
-                type="submit" 
-                id="user-track-btn" 
-                class="absolute right-2 top-2 bottom-2 px-6 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs uppercase tracking-wider shadow-md transition-all flex items-center space-x-1.5 cursor-pointer"
-              >
+                required />
+              <button type="submit" id="user-track-btn"
+                class="absolute right-2 top-2 bottom-2 px-6 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs uppercase tracking-wider shadow-md transition-all flex items-center space-x-1.5 cursor-pointer">
                 <span>Track</span>
-                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
               </button>
             </div>
           </div>
 
           <div>
             <label class="block text-xs font-semibold text-slate-400 mb-1.5">Optional Customer Inquiry:</label>
-            <input 
-              type="text" 
-              id="user-input-question" 
-              placeholder="e.g. Where is my parcel? Why is it delayed?" 
-              value="Where is my parcel?" 
-              class="w-full bg-slate-900/60 border border-slate-800 rounded-lg px-4 py-2.5 text-xs text-slate-300 placeholder-slate-600 focus:outline-none focus:border-indigo-500/50"
-            />
+            <input type="text" id="user-input-question" placeholder="e.g. Where is my parcel? Why is it delayed?"
+              value="Where is my parcel?"
+              class="w-full bg-slate-900/60 border border-slate-800 rounded-lg px-4 py-2.5 text-xs text-slate-300 placeholder-slate-600 focus:outline-none focus:border-indigo-500/50" />
           </div>
 
         </form>
@@ -332,19 +399,23 @@
         <div class="pt-2 border-t border-slate-800">
           <span class="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Try a sample package:</span>
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-2">
-            <button onclick="pickUserSample('TM1001', 'Where is my order?')" class="p-2.5 rounded-lg bg-slate-900/90 hover:bg-slate-800 text-left border border-slate-800 transition-colors">
+            <button onclick="pickUserSample('TM1001', 'Where is my order?')"
+              class="p-2.5 rounded-lg bg-slate-900/90 hover:bg-slate-800 text-left border border-slate-800 transition-colors">
               <span class="font-mono text-xs font-bold text-emerald-400 block">TM1001</span>
               <span class="text-[10px] text-slate-400">On Schedule (Pune)</span>
             </button>
-            <button onclick="pickUserSample('TM1006', 'Why is this so late?')" class="p-2.5 rounded-lg bg-slate-900/90 hover:bg-slate-800 text-left border border-slate-800 transition-colors">
+            <button onclick="pickUserSample('TM1006', 'Why is this so late?')"
+              class="p-2.5 rounded-lg bg-slate-900/90 hover:bg-slate-800 text-left border border-slate-800 transition-colors">
               <span class="font-mono text-xs font-bold text-rose-400 block">TM1006</span>
               <span class="text-[10px] text-slate-400">6d Delay (Escalate)</span>
             </button>
-            <button onclick="pickUserSample('TM1018', 'Is it delayed by weather?')" class="p-2.5 rounded-lg bg-slate-900/90 hover:bg-slate-800 text-left border border-slate-800 transition-colors">
+            <button onclick="pickUserSample('TM1018', 'Is it delayed by weather?')"
+              class="p-2.5 rounded-lg bg-slate-900/90 hover:bg-slate-800 text-left border border-slate-800 transition-colors">
               <span class="font-mono text-xs font-bold text-cyan-400 block">TM1018</span>
               <span class="text-[10px] text-slate-400">Weather Check (Mumbai)</span>
             </button>
-            <button onclick="pickUserSample('TM1011', 'Why did delivery fail?')" class="p-2.5 rounded-lg bg-slate-900/90 hover:bg-slate-800 text-left border border-slate-800 transition-colors">
+            <button onclick="pickUserSample('TM1011', 'Why did delivery fail?')"
+              class="p-2.5 rounded-lg bg-slate-900/90 hover:bg-slate-800 text-left border border-slate-800 transition-colors">
               <span class="font-mono text-xs font-bold text-amber-400 block">TM1011</span>
               <span class="text-[10px] text-slate-400">Failed Delivery Scan</span>
             </button>
@@ -361,16 +432,20 @@
       </div>
 
       <!-- USER MODE RESULT CARD (BEAUTIFUL CONSUMER TRACKING CARD) -->
-      <div id="user-tracking-result" class="hidden glass-panel rounded-2xl p-6 sm:p-8 space-y-6 shadow-2xl border border-slate-700">
-        
+      <div id="user-tracking-result"
+        class="hidden glass-panel rounded-2xl p-6 sm:p-8 space-y-6 shadow-2xl border border-slate-700">
+
         <!-- Header Info -->
         <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-slate-800 gap-4">
           <div>
             <div class="flex items-center space-x-3">
               <span class="font-mono text-2xl font-extrabold text-white" id="user-card-tid">TM1001</span>
-              <span id="user-card-status" class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">In Transit</span>
+              <span id="user-card-status"
+                class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">In
+                Transit</span>
             </div>
-            <p class="text-xs text-slate-400 mt-1" id="user-card-route">Courier: SwiftCourier &bull; Mumbai &rarr; Pune</p>
+            <p class="text-xs text-slate-400 mt-1" id="user-card-route">Courier: SwiftCourier &bull; Mumbai &rarr; Pune
+            </p>
           </div>
           <div class="text-left sm:text-right">
             <div class="text-xs text-slate-400">Estimated Delivery Date</div>
@@ -382,32 +457,49 @@
         <div class="py-4 px-2">
           <div class="relative flex items-center justify-between">
             <div class="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-1 bg-slate-800 z-0"></div>
-            <div id="user-card-step-bar" class="absolute left-0 top-1/2 -translate-y-1/2 h-1 bg-indigo-500 transition-all duration-700 z-0" style="width: 50%;"></div>
-            
+            <div id="user-card-step-bar"
+              class="absolute left-0 top-1/2 -translate-y-1/2 h-1 bg-indigo-500 transition-all duration-700 z-0"
+              style="width: 50%;"></div>
+
             <div class="relative z-10 flex flex-col items-center">
-              <div id="step-dot-1" class="w-10 h-10 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold text-xs ring-4 ring-slate-950 shadow">
-                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              <div id="step-dot-1"
+                class="w-10 h-10 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold text-xs ring-4 ring-slate-950 shadow">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
               </div>
               <span class="text-[11px] font-semibold text-slate-300 mt-2">Ordered</span>
             </div>
 
             <div class="relative z-10 flex flex-col items-center">
-              <div id="step-dot-2" class="w-10 h-10 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold text-xs ring-4 ring-slate-950 shadow">
-                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"/></svg>
+              <div id="step-dot-2"
+                class="w-10 h-10 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold text-xs ring-4 ring-slate-950 shadow">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0" />
+                </svg>
               </div>
               <span class="text-[11px] font-semibold text-slate-300 mt-2">In Transit</span>
             </div>
 
             <div class="relative z-10 flex flex-col items-center">
-              <div id="step-dot-3" class="w-10 h-10 rounded-full bg-slate-800 text-slate-400 flex items-center justify-center font-bold text-xs ring-4 ring-slate-950 shadow">
-                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <div id="step-dot-3"
+                class="w-10 h-10 rounded-full bg-slate-800 text-slate-400 flex items-center justify-center font-bold text-xs ring-4 ring-slate-950 shadow">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
               </div>
               <span class="text-[11px] font-semibold text-slate-400 mt-2">Out for Delivery</span>
             </div>
 
             <div class="relative z-10 flex flex-col items-center">
-              <div id="step-dot-4" class="w-10 h-10 rounded-full bg-slate-800 text-slate-400 flex items-center justify-center font-bold text-xs ring-4 ring-slate-950 shadow">
-                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+              <div id="step-dot-4"
+                class="w-10 h-10 rounded-full bg-slate-800 text-slate-400 flex items-center justify-center font-bold text-xs ring-4 ring-slate-950 shadow">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                </svg>
               </div>
               <span class="text-[11px] font-semibold text-slate-400 mt-2">Delivered</span>
             </div>
@@ -418,15 +510,22 @@
         <!-- AI Assistant Customer Communication Bubble -->
         <div class="p-5 rounded-xl bg-slate-900/90 border border-slate-800 space-y-2">
           <div class="flex items-center space-x-2 text-indigo-400 text-xs font-bold uppercase tracking-wider">
-            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+            </svg>
             <span>Delivery Intelligence Update</span>
           </div>
           <p id="user-card-reply" class="text-sm text-slate-200 leading-relaxed font-normal">...</p>
         </div>
 
         <!-- Automated Resolution Box -->
-        <div id="user-card-resolution-box" class="p-4 rounded-xl flex items-start space-x-3 bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-xs">
-          <svg class="w-5 h-5 flex-shrink-0 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <div id="user-card-resolution-box"
+          class="p-4 rounded-xl flex items-start space-x-3 bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-xs">
+          <svg class="w-5 h-5 flex-shrink-0 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
           <div>
             <span class="font-bold block text-sm" id="user-card-res-title">Package Moving Normally</span>
             <span id="user-card-res-desc">Your package is currently in transit and scheduled to arrive on time.</span>
@@ -436,9 +535,13 @@
         <!-- Checkpoint Scans Accordion -->
         <div class="pt-2">
           <details class="group">
-            <summary class="flex items-center justify-between cursor-pointer text-xs font-semibold text-slate-400 hover:text-slate-200">
+            <summary
+              class="flex items-center justify-between cursor-pointer text-xs font-semibold text-slate-400 hover:text-slate-200">
               <span>View Transit Scan History (<span id="user-card-event-count">0</span> events recorded)</span>
-              <svg class="w-4 h-4 transform group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              <svg class="w-4 h-4 transform group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
             </summary>
             <div id="user-card-event-list" class="mt-3 space-y-2 border-l-2 border-slate-800 ml-2 pl-4 text-xs">
               <!-- Event items -->
@@ -450,302 +553,96 @@
 
     </section>
 
-    <!-- ARCHITECTURE & AGENT FLOW DIAGRAM (ANIMATED & INTERACTIVE) -->
-    <section id="architecture-section" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24 space-y-8">
-      <div class="text-center space-y-2.5 max-w-2xl mx-auto">
-        <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-semibold">
-          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-          <span>Architecture &amp; Intelligence Pipeline</span>
-        </div>
-        <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">How TrackMate Works</h2>
-        <p class="text-slate-400 text-xs sm:text-sm leading-relaxed">Click any step to see how product goals translate into deterministic engineering.</p>
+    <!-- HOW TRACKMATE WORKS (animated flow diagram) -->
+    <section id="architecture-section" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24 space-y-5">
+
+      <div class="text-center space-y-1.5 max-w-2xl mx-auto">
+        <p class="text-[11px] font-semibold uppercase tracking-[0.2em] text-indigo-400">How it works</p>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">From question to resolution</h2>
+        <p class="text-slate-400 text-xs sm:text-sm leading-relaxed">Watch a delivery issue flow through six deliberate
+          steps. Click any node to inspect it.</p>
       </div>
 
-      <div class="glass-panel rounded-2xl p-5 sm:p-7 border border-slate-800 shadow-2xl">
+      <div class="glass-panel rounded-2xl p-4 sm:p-5 border border-slate-800">
 
-        <!-- Controls -->
-        <div class="flex flex-wrap items-center justify-between gap-3 pb-4 mb-5 border-b border-slate-800/80">
-          <div class="flex items-center space-x-2.5">
-            <button id="diagram-play-btn" onclick="toggleDiagramPlay()" class="px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-xs transition-all flex items-center space-x-1.5 cursor-pointer">
-              <span id="diagram-play-icon">&#9208;</span>
-              <span id="diagram-play-text">Pause</span>
-            </button>
-            <div class="flex items-center space-x-1">
-              <button onclick="prevDiagramStep()" class="p-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 cursor-pointer" title="Prev">
-                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
-              </button>
-              <button onclick="nextDiagramStep()" class="p-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 cursor-pointer" title="Next">
-                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-              </button>
-            </div>
-            <div class="h-4 w-px bg-slate-800"></div>
-            <span class="text-xs font-mono text-slate-400">Stage <span id="diagram-current-step-label" class="text-indigo-400 font-bold">1</span> of 6</span>
-          </div>
-          <div class="flex items-center space-x-2">
-            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            <span id="diagram-play-status-pill" class="text-[11px] font-mono text-slate-400">Auto-Advancing (3.8s)</span>
-            <div class="w-24 h-1 bg-slate-800 rounded-full overflow-hidden ml-2">
-              <div id="diagram-step-progress" class="h-full bg-indigo-500 transition-all duration-300" style="width:16.6%"></div>
-            </div>
-          </div>
+        <div class="flex items-center justify-between mb-1">
+          <span class="text-xs font-semibold text-slate-300">Delivery investigation</span>
+          <button id="wf-toggle" type="button" onclick="toggleDiagramAuto()"
+            class="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-700 text-[11px] font-semibold text-slate-300 hover:bg-slate-800 hover:text-white transition-colors cursor-pointer">Pause</button>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-
-          <!-- LEFT: steps accordion -->
-          <div class="lg:col-span-5 space-y-2.5" id="steps-accordion-container">
-
-            <div id="acc-card-1" onclick="selectDiagramStep(1,true)" class="acc-step-card p-3.5 rounded-xl border border-indigo-500/50 bg-slate-900/90 transition-all cursor-pointer hover:border-indigo-500 group">
-              <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-2.5">
-                  <span id="acc-badge-1" class="w-6 h-6 rounded-md bg-indigo-600 text-white font-bold text-[11px] flex items-center justify-center font-mono">01</span>
-                  <h4 class="text-xs font-bold text-white group-hover:text-indigo-300 transition-colors">Inquiry Ingestion &amp; Triage</h4>
-                </div>
-                <div class="flex items-center space-x-2">
-                  <span class="text-[10px] font-mono text-indigo-400 bg-indigo-500/10 px-1.5 py-0.5 rounded">Triage</span>
-                  <svg id="acc-chevron-1" class="w-3.5 h-3.5 text-indigo-400 transform rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                </div>
-              </div>
-              <div id="acc-content-1" class="acc-content mt-2.5 text-xs text-slate-400 space-y-2 border-t border-slate-800/80 pt-2.5">
-                <p class="text-[10px] font-bold uppercase tracking-wider text-indigo-300">📌 Product / PM Goal</p>
-                <p class="text-[11px] text-slate-300 leading-relaxed">Customer submits a query. The system auto-triages it, normalises the tracking number format, and rejects garbage IDs before wasting any compute.</p>
-                <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400 mt-1.5">⚙️ Engineering</p>
-                <p class="text-[11px] text-slate-400 font-mono leading-relaxed">Strip whitespace → regex TM\d{4} → validate → build agent payload</p>
-              </div>
-            </div>
-
-            <div id="acc-card-2" onclick="selectDiagramStep(2,true)" class="acc-step-card p-3.5 rounded-xl border border-slate-800/90 bg-slate-900/40 transition-all cursor-pointer hover:border-slate-700 group">
-              <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-2.5">
-                  <span id="acc-badge-2" class="w-6 h-6 rounded-md bg-slate-800 text-slate-400 font-bold text-[11px] flex items-center justify-center font-mono">02</span>
-                  <h4 class="text-xs font-bold text-slate-300 group-hover:text-white transition-colors">Shipment State Inspection</h4>
-                </div>
-                <div class="flex items-center space-x-2">
-                  <span class="text-[10px] font-mono text-cyan-400 bg-cyan-500/10 px-1.5 py-0.5 rounded">DB</span>
-                  <svg id="acc-chevron-2" class="w-3.5 h-3.5 text-slate-500 transform transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                </div>
-              </div>
-              <div id="acc-content-2" class="acc-content hidden mt-2.5 text-xs text-slate-400 space-y-2 border-t border-slate-800/80 pt-2.5">
-                <p class="text-[10px] font-bold uppercase tracking-wider text-cyan-300">📌 Product / PM Goal</p>
-                <p class="text-[11px] text-slate-300 leading-relaxed">Know whether the carrier is genuinely late against the SLA or the customer is just checking in early. Protects resolution accuracy.</p>
-                <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400 mt-1.5">⚙️ Engineering</p>
-                <p class="text-[11px] text-slate-400 font-mono leading-relaxed">get_shipment(TM1018) → derive days_past_estimate &amp; days_since_last_scan</p>
-              </div>
-            </div>
-
-            <div id="acc-card-3" onclick="selectDiagramStep(3,true)" class="acc-step-card p-3.5 rounded-xl border border-slate-800/90 bg-slate-900/40 transition-all cursor-pointer hover:border-slate-700 group">
-              <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-2.5">
-                  <span id="acc-badge-3" class="w-6 h-6 rounded-md bg-slate-800 text-slate-400 font-bold text-[11px] flex items-center justify-center font-mono">03</span>
-                  <h4 class="text-xs font-bold text-slate-300 group-hover:text-white transition-colors">Weather Verification (M5)</h4>
-                </div>
-                <div class="flex items-center space-x-2">
-                  <span class="text-[10px] font-mono text-amber-400 bg-amber-500/10 px-1.5 py-0.5 rounded">Context</span>
-                  <svg id="acc-chevron-3" class="w-3.5 h-3.5 text-slate-500 transform transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                </div>
-              </div>
-              <div id="acc-content-3" class="acc-content hidden mt-2.5 text-xs text-slate-400 space-y-2 border-t border-slate-800/80 pt-2.5">
-                <p class="text-[10px] font-bold uppercase tracking-wider text-amber-300">📌 Product / PM Goal</p>
-                <p class="text-[11px] text-slate-300 leading-relaxed">Be transparent with customers about real weather disruptions — cyclones, heavy rain — without letting that excuse bypass refund rights.</p>
-                <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400 mt-1.5">⚙️ Engineering</p>
-                <p class="text-[11px] text-slate-400 font-mono leading-relaxed">get_weather(Mumbai, dates) → Open-Meteo historical API → context-only flag</p>
-              </div>
-            </div>
-
-            <div id="acc-card-4" onclick="selectDiagramStep(4,true)" class="acc-step-card p-3.5 rounded-xl border border-slate-800/90 bg-slate-900/40 transition-all cursor-pointer hover:border-slate-700 group">
-              <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-2.5">
-                  <span id="acc-badge-4" class="w-6 h-6 rounded-md bg-slate-800 text-slate-400 font-bold text-[11px] flex items-center justify-center font-mono">04</span>
-                  <h4 class="text-xs font-bold text-slate-300 group-hover:text-white transition-colors">Semantic Policy RAG</h4>
-                </div>
-                <div class="flex items-center space-x-2">
-                  <span class="text-[10px] font-mono text-purple-400 bg-purple-500/10 px-1.5 py-0.5 rounded">RAG</span>
-                  <svg id="acc-chevron-4" class="w-3.5 h-3.5 text-slate-500 transform transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                </div>
-              </div>
-              <div id="acc-content-4" class="acc-content hidden mt-2.5 text-xs text-slate-400 space-y-2 border-t border-slate-800/80 pt-2.5">
-                <p class="text-[10px] font-bold uppercase tracking-wider text-purple-300">📌 Product / PM Goal</p>
-                <p class="text-[11px] text-slate-300 leading-relaxed">Ensure every customer reply is grounded in the actual contract — SLA windows, refund caps, escalation clauses — not AI guesses.</p>
-                <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400 mt-1.5">⚙️ Engineering</p>
-                <p class="text-[11px] text-slate-400 font-mono leading-relaxed">search_policies(query) → ChromaDB cosine → CLAUSE_REFUND_01 returned</p>
-              </div>
-            </div>
-
-            <div id="acc-card-5" onclick="selectDiagramStep(5,true)" class="acc-step-card p-3.5 rounded-xl border border-slate-800/90 bg-slate-900/40 transition-all cursor-pointer hover:border-slate-700 group">
-              <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-2.5">
-                  <span id="acc-badge-5" class="w-6 h-6 rounded-md bg-slate-800 text-slate-400 font-bold text-[11px] flex items-center justify-center font-mono">05</span>
-                  <h4 class="text-xs font-bold text-slate-300 group-hover:text-white transition-colors">Guardrails Shield (G1–G5)</h4>
-                </div>
-                <div class="flex items-center space-x-2">
-                  <span class="text-[10px] font-mono text-amber-400 bg-amber-500/10 px-1.5 py-0.5 rounded">Safety</span>
-                  <svg id="acc-chevron-5" class="w-3.5 h-3.5 text-slate-500 transform transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                </div>
-              </div>
-              <div id="acc-content-5" class="acc-content hidden mt-2.5 text-xs text-slate-400 space-y-2 border-t border-slate-800/80 pt-2.5">
-                <p class="text-[10px] font-bold uppercase tracking-wider text-amber-300">📌 Product / PM Goal</p>
-                <p class="text-[11px] text-slate-300 leading-relaxed">Zero tolerance for hallucinated policies. Packages &gt;3 days late always escalate. The AI cannot invent a refund or promise a date.</p>
-                <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400 mt-1.5">⚙️ Engineering</p>
-                <p class="text-[11px] text-slate-400 font-mono leading-relaxed">G1 schema · G2 citation strip · G3 damaged route · G4 reply check · G5 retrieval</p>
-              </div>
-            </div>
-
-            <div id="acc-card-6" onclick="selectDiagramStep(6,true)" class="acc-step-card p-3.5 rounded-xl border border-slate-800/90 bg-slate-900/40 transition-all cursor-pointer hover:border-slate-700 group">
-              <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-2.5">
-                  <span id="acc-badge-6" class="w-6 h-6 rounded-md bg-slate-800 text-slate-400 font-bold text-[11px] flex items-center justify-center font-mono">06</span>
-                  <h4 class="text-xs font-bold text-slate-300 group-hover:text-white transition-colors">Resolution &amp; Human Outbox</h4>
-                </div>
-                <div class="flex items-center space-x-2">
-                  <span class="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded">Action</span>
-                  <svg id="acc-chevron-6" class="w-3.5 h-3.5 text-slate-500 transform transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                </div>
-              </div>
-              <div id="acc-content-6" class="acc-content hidden mt-2.5 text-xs text-slate-400 space-y-2 border-t border-slate-800/80 pt-2.5">
-                <p class="text-[10px] font-bold uppercase tracking-wider text-emerald-300">📌 Product / PM Goal</p>
-                <p class="text-[11px] text-slate-300 leading-relaxed">Send a professional, empathetic reply and queue any carrier disputes for a supervisor to approve — no rogue automated actions.</p>
-                <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400 mt-1.5">⚙️ Engineering</p>
-                <p class="text-[11px] text-slate-400 font-mono leading-relaxed">POST /approve/{draft_id} → idempotent write → outbox.jsonl</p>
-              </div>
-            </div>
-
-          </div>
-
-          <!-- RIGHT: compact diagram + HUD inspector -->
-          <div class="lg:col-span-7 flex flex-col space-y-4">
-
-            <!-- Diagram canvas -->
-            <div class="rounded-xl bg-slate-950/90 border border-slate-800/90 p-5 relative overflow-hidden shadow-inner">
-              <div class="absolute inset-0 bg-gradient-to-b from-indigo-950/10 via-transparent to-slate-950 pointer-events-none"></div>
-              <div class="relative z-10 space-y-3">
-
-                <div class="flex justify-center">
-                  <div id="d-node-1" onclick="selectDiagramStep(1,true)" class="diagram-node px-4 py-2 rounded-xl bg-slate-900 border-2 border-indigo-500 shadow-md shadow-indigo-500/20 transition-all cursor-pointer flex items-center space-x-2.5 hover:border-indigo-400">
-                    <span class="w-5 h-5 rounded-md bg-indigo-600/30 text-indigo-400 text-xs flex items-center justify-center font-bold">01</span>
-                    <span class="text-xs font-semibold text-white">Customer Query &amp; ID</span>
-                  </div>
-                </div>
-
-                <div class="flex justify-center -my-1">
-                  <svg class="w-24 h-4 text-indigo-500/60" viewBox="0 0 96 16" fill="none"><path d="M48 0 V16" stroke="currentColor" stroke-width="2" stroke-dasharray="3 3"/></svg>
-                </div>
-
-                <div class="grid grid-cols-3 gap-2.5">
-                  <div id="d-node-2" onclick="selectDiagramStep(2,true)" class="diagram-node p-2.5 rounded-lg bg-slate-900/90 border border-slate-800 transition-all cursor-pointer text-center space-y-1 hover:border-cyan-500/60">
-                    <span class="text-[9px] font-mono font-bold text-cyan-400 uppercase block">02 &bull; DB</span>
-                    <span class="text-[11px] font-semibold text-slate-200 block">Shipment State</span>
-                    <span class="text-[9px] font-mono text-slate-500">get_shipment</span>
-                  </div>
-                  <div id="d-node-3" onclick="selectDiagramStep(3,true)" class="diagram-node p-2.5 rounded-lg bg-slate-900/90 border border-slate-800 transition-all cursor-pointer text-center space-y-1 hover:border-amber-500/60">
-                    <span class="text-[9px] font-mono font-bold text-amber-400 uppercase block">03 &bull; M5</span>
-                    <span class="text-[11px] font-semibold text-slate-200 block">Open-Meteo</span>
-                    <span class="text-[9px] font-mono text-slate-500">get_weather</span>
-                  </div>
-                  <div id="d-node-4" onclick="selectDiagramStep(4,true)" class="diagram-node p-2.5 rounded-lg bg-slate-900/90 border border-slate-800 transition-all cursor-pointer text-center space-y-1 hover:border-purple-500/60">
-                    <span class="text-[9px] font-mono font-bold text-purple-400 uppercase block">04 &bull; RAG</span>
-                    <span class="text-[11px] font-semibold text-slate-200 block">Vector Policies</span>
-                    <span class="text-[9px] font-mono text-slate-500">search_policies</span>
-                  </div>
-                </div>
-
-                <div class="flex justify-center -my-1">
-                  <svg class="w-24 h-4 text-amber-500/60" viewBox="0 0 96 16" fill="none"><path d="M48 0 V16" stroke="currentColor" stroke-width="2" stroke-dasharray="3 3"/></svg>
-                </div>
-
-                <div class="flex justify-center">
-                  <div id="d-node-5" onclick="selectDiagramStep(5,true)" class="diagram-node px-4 py-2 rounded-xl bg-slate-900 border border-slate-800 transition-all cursor-pointer flex items-center space-x-2.5 hover:border-amber-500">
-                    <span class="w-5 h-5 rounded-md bg-amber-500/20 text-amber-400 text-xs flex items-center justify-center font-bold">05</span>
-                    <span class="text-xs font-semibold text-slate-300">Deterministic Safety Shield (G1–G5)</span>
-                  </div>
-                </div>
-
-                <div class="flex justify-center -my-1">
-                  <svg class="w-24 h-4 text-emerald-500/60" viewBox="0 0 96 16" fill="none"><path d="M48 0 V16" stroke="currentColor" stroke-width="2" stroke-dasharray="3 3"/></svg>
-                </div>
-
-                <div class="flex justify-center">
-                  <div id="d-node-6" onclick="selectDiagramStep(6,true)" class="diagram-node px-4 py-2 rounded-xl bg-slate-900 border border-slate-800 transition-all cursor-pointer flex items-center space-x-2.5 hover:border-emerald-500">
-                    <span class="w-5 h-5 rounded-md bg-emerald-500/20 text-emerald-400 text-xs flex items-center justify-center font-bold">06</span>
-                    <span class="text-xs font-semibold text-slate-300">Customer Communication &amp; Human Outbox</span>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-
-            <!-- HUD Inspector -->
-            <div class="rounded-xl bg-slate-900/90 border border-slate-800 p-4 space-y-2.5">
-              <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-2">
-                  <span class="w-2 h-2 rounded-full bg-indigo-400 animate-ping"></span>
-                  <span id="hud-step-title" class="text-xs font-bold text-white font-mono">Stage 01: Inquiry Ingestion &amp; Triage</span>
-                </div>
-                <span id="hud-badge" class="text-[10px] font-mono text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded-full border border-indigo-500/20">Input Sanitized</span>
-              </div>
-              <div class="p-2.5 rounded-lg bg-slate-950 border border-slate-800/80 space-y-1.5 text-[11px]">
-                <div class="flex items-start space-x-1.5">
-                  <span class="text-indigo-400 font-bold font-mono select-none">PM:</span>
-                  <span id="hud-pm-text" class="text-slate-300 font-sans">Captures query, normalises format, identifies dispute urgency before invoking the agent.</span>
-                </div>
-                <div class="flex items-start space-x-1.5">
-                  <span class="text-slate-500 font-bold font-mono select-none">DEV:</span>
-                  <span id="hud-dev-code" class="text-indigo-300 font-mono">strip → TM\d{4} regex → validate → payload</span>
-                </div>
-              </div>
-            </div>
-
-          </div>
+        <!-- Animated flow diagram (built by JS) -->
+        <div class="overflow-x-auto">
+          <svg id="wf-svg" viewBox="0 0 960 240" class="w-full" style="min-width:640px" role="img"
+            aria-label="TrackMate agent flow diagram"></svg>
         </div>
+
+        <!-- Detail panel (rendered by JS) -->
+        <div id="wf-panel" class="mt-2 pt-4 border-t border-slate-800/80"></div>
 
       </div>
     </section>
 
-    <!-- KEY CAPABILITIES & FEATURES GRID -->    <!-- KEY CAPABILITIES & FEATURES GRID -->
+    <!-- KEY CAPABILITIES & FEATURES GRID -->
     <section id="features-section" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24 space-y-10">
-      
+
       <div class="text-center space-y-2">
         <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Why TrackMate Excels in Production</h2>
-        <p class="text-slate-400 text-xs sm:text-sm">Engineered with safety, grounding, and human-in-the-loop control.</p>
+        <p class="text-slate-400 text-xs sm:text-sm">Engineered with safety, grounding, and human-in-the-loop control.
+        </p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        
+
         <div class="glass-panel rounded-2xl p-6 space-y-3 hover:border-indigo-500/40 transition-colors">
-          <div class="w-10 h-10 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 flex items-center justify-center">
-            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          <div
+            class="w-10 h-10 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 flex items-center justify-center">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+            </svg>
           </div>
           <h3 class="text-base font-bold text-white">Deterministic Guardrails (G1–G5)</h3>
           <p class="text-xs text-slate-400 leading-relaxed">
-            AI language models can hallucinate policies or propose rogue actions. TrackMate wraps the LLM with deterministic Python guardrails ensuring no citation is hallucinated and claims strictly follow operating clauses.
+            AI language models can hallucinate policies or propose rogue actions. TrackMate wraps the LLM with
+            deterministic Python guardrails ensuring no citation is hallucinated and claims strictly follow operating
+            clauses.
           </p>
         </div>
 
         <div class="glass-panel rounded-2xl p-6 space-y-3 hover:border-cyan-500/40 transition-colors">
-          <div class="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center">
-            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 00-9.78 2.096A4.001 4.001 0 003 15z"/></svg>
+          <div
+            class="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 00-9.78 2.096A4.001 4.001 0 003 15z" />
+            </svg>
           </div>
           <h3 class="text-base font-bold text-white">Live Open-Meteo Weather (M5)</h3>
           <p class="text-xs text-slate-400 leading-relaxed">
-            Real-world weather delays require evidence. TrackMate queries live Open-Meteo historical APIs for destination cities to explain transit hiccups without altering contractual escalation boundaries.
+            Real-world weather delays require evidence. TrackMate queries live Open-Meteo historical APIs for
+            destination cities to explain transit hiccups without altering contractual escalation boundaries.
           </p>
         </div>
 
         <div class="glass-panel rounded-2xl p-6 space-y-3 hover:border-emerald-500/40 transition-colors">
-          <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center">
-            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+          <div
+            class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+            </svg>
           </div>
           <h3 class="text-base font-bold text-white">Human-in-the-Loop Dispatch</h3>
           <p class="text-xs text-slate-400 leading-relaxed">
-            When escalation is required, TrackMate drafts the exact courier support desk email or WhatsApp customer message. A human supervisor approves with one click before anything is written to the outbox.
+            When escalation is required, TrackMate drafts the exact courier support desk email or WhatsApp customer
+            message. A human supervisor approves with one click before anything is written to the outbox.
           </p>
         </div>
 
       </div>
 
     </section>
-
-    <!-- FOOTER -->
-
 
   </div>
 
@@ -757,19 +654,23 @@
 
     <!-- DEV TAB 1: AGENT INVESTIGATOR (STUDIO) -->
     <section id="dev-tab-investigate" class="dev-tab-content space-y-8">
-      
+
       <!-- Studio Header -->
       <div class="relative overflow-hidden rounded-2xl glass-panel p-6 sm:p-8 glow-indigo">
         <div class="relative z-10 max-w-3xl">
-          <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-semibold uppercase tracking-wider mb-3">
-            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          <div
+            class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-semibold uppercase tracking-wider mb-3">
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
             <span>Agent Studio &bull; Developer Mode</span>
           </div>
           <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight">
             Interactive Agent Investigation Studio
           </h2>
           <p class="mt-2 text-slate-400 text-xs sm:text-sm leading-relaxed">
-            Execute real-time agent trajectories. Inspect step latencies, tool parameters, RAG retrieved vector chunks, deterministic guardrail triggers, and Human-in-the-Loop message drafts.
+            Execute real-time agent trajectories. Inspect step latencies, tool parameters, RAG retrieved vector chunks,
+            deterministic guardrail triggers, and Human-in-the-Loop message drafts.
           </p>
         </div>
       </div>
@@ -777,60 +678,79 @@
       <!-- Quick Test Benchmark Chips -->
       <div class="space-y-3">
         <div class="flex items-center justify-between">
-          <h3 class="text-xs font-semibold uppercase tracking-wider text-slate-400">Curated Benchmark Scenarios (Click to Load)</h3>
+          <h3 class="text-xs font-semibold uppercase tracking-wider text-slate-400">Curated Benchmark Scenarios (Click
+            to Load)</h3>
           <span class="text-xs text-slate-500">From evals/scenarios.json</span>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-          
-          <button onclick="loadDevScenario('TM1001', 'Where is my package?')" class="text-left p-3.5 rounded-xl glass-card hover:border-indigo-500/50 hover:bg-slate-800/80 transition-all group cursor-pointer">
+
+          <button onclick="loadDevScenario('TM1001', 'Where is my package?')"
+            class="text-left p-3.5 rounded-xl glass-card hover:border-indigo-500/50 hover:bg-slate-800/80 transition-all group cursor-pointer">
             <div class="flex items-center justify-between mb-1.5">
-              <span class="font-mono text-xs font-bold text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded">TM1001</span>
-              <span class="text-[11px] font-semibold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">update</span>
+              <span
+                class="font-mono text-xs font-bold text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded">TM1001</span>
+              <span
+                class="text-[11px] font-semibold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">update</span>
             </div>
             <p class="text-xs text-slate-200 font-medium group-hover:text-white">"Where is my package?"</p>
             <p class="text-[11px] text-slate-400 mt-1">In transit, on schedule. Normal tracking update.</p>
           </button>
 
-          <button onclick="loadDevScenario('TM1006', 'Why is this so late?')" class="text-left p-3.5 rounded-xl glass-card hover:border-rose-500/50 hover:bg-slate-800/80 transition-all group cursor-pointer">
+          <button onclick="loadDevScenario('TM1006', 'Why is this so late?')"
+            class="text-left p-3.5 rounded-xl glass-card hover:border-rose-500/50 hover:bg-slate-800/80 transition-all group cursor-pointer">
             <div class="flex items-center justify-between mb-1.5">
               <span class="font-mono text-xs font-bold text-rose-400 bg-rose-500/10 px-2 py-0.5 rounded">TM1006</span>
-              <span class="text-[11px] font-semibold text-rose-400 bg-rose-500/10 px-2 py-0.5 rounded-full border border-rose-500/20">escalate</span>
+              <span
+                class="text-[11px] font-semibold text-rose-400 bg-rose-500/10 px-2 py-0.5 rounded-full border border-rose-500/20">escalate</span>
             </div>
             <p class="text-xs text-slate-200 font-medium group-hover:text-white">"Why is this so late?"</p>
             <p class="text-[11px] text-slate-400 mt-1">6 days past estimate (> 3d). Generates email draft.</p>
           </button>
 
-          <button onclick="loadDevScenario('TM1011', 'Why isn\'t it delivered?')" class="text-left p-3.5 rounded-xl glass-card hover:border-amber-500/50 hover:bg-slate-800/80 transition-all group cursor-pointer">
+          <button onclick="loadDevScenario('TM1011', 'Why isn\'t it delivered?')"
+            class="text-left p-3.5 rounded-xl glass-card hover:border-amber-500/50 hover:bg-slate-800/80 transition-all group cursor-pointer">
             <div class="flex items-center justify-between mb-1.5">
               <span class="font-mono text-xs font-bold text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded">TM1011</span>
-              <span class="text-[11px] font-semibold text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded-full border border-amber-500/20">ask_info</span>
+              <span
+                class="text-[11px] font-semibold text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded-full border border-amber-500/20">ask_info</span>
             </div>
             <p class="text-xs text-slate-200 font-medium group-hover:text-white">"Why isn't it delivered?"</p>
             <p class="text-[11px] text-slate-400 mt-1">1 delivery attempt failed. WhatsApp draft to customer.</p>
           </button>
 
-          <button onclick="loadDevScenario('TM1018', 'It\'s very delayed. Is it the weather?')" class="text-left p-3.5 rounded-xl glass-card hover:border-cyan-500/50 hover:bg-slate-800/80 transition-all group cursor-pointer">
+          <button onclick="loadDevScenario('TM1018', 'It\'s very delayed. Is it the weather?')"
+            class="text-left p-3.5 rounded-xl glass-card hover:border-cyan-500/50 hover:bg-slate-800/80 transition-all group cursor-pointer">
             <div class="flex items-center justify-between mb-1.5">
-              <span class="font-mono text-xs font-bold text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded">TM1018 (M5)</span>
-              <span class="text-[11px] font-semibold text-rose-400 bg-rose-500/10 px-2 py-0.5 rounded-full border border-rose-500/20">Weather + escalate</span>
+              <span class="font-mono text-xs font-bold text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded">TM1018
+                (M5)</span>
+              <span
+                class="text-[11px] font-semibold text-rose-400 bg-rose-500/10 px-2 py-0.5 rounded-full border border-rose-500/20">Weather
+                + escalate</span>
             </div>
-            <p class="text-xs text-slate-200 font-medium group-hover:text-white">"It's very delayed. Is it the weather?"</p>
+            <p class="text-xs text-slate-200 font-medium group-hover:text-white">"It's very delayed. Is it the weather?"
+            </p>
             <p class="text-[11px] text-slate-400 mt-1">Calls Open-Meteo for Mumbai; weather noted in reply.</p>
           </button>
 
-          <button onclick="loadDevScenario('TM1016', 'The item arrived broken.')" class="text-left p-3.5 rounded-xl glass-card hover:border-rose-500/50 hover:bg-slate-800/80 transition-all group cursor-pointer">
+          <button onclick="loadDevScenario('TM1016', 'The item arrived broken.')"
+            class="text-left p-3.5 rounded-xl glass-card hover:border-rose-500/50 hover:bg-slate-800/80 transition-all group cursor-pointer">
             <div class="flex items-center justify-between mb-1.5">
               <span class="font-mono text-xs font-bold text-rose-400 bg-rose-500/10 px-2 py-0.5 rounded">TM1016</span>
-              <span class="text-[11px] font-semibold text-rose-400 bg-rose-500/10 px-2 py-0.5 rounded-full border border-rose-500/20">G3 Guardrail</span>
+              <span
+                class="text-[11px] font-semibold text-rose-400 bg-rose-500/10 px-2 py-0.5 rounded-full border border-rose-500/20">G3
+                Guardrail</span>
             </div>
             <p class="text-xs text-slate-200 font-medium group-hover:text-white">"The item arrived broken."</p>
             <p class="text-[11px] text-slate-400 mt-1">Damaged package: Guardrail G3 enforces escalation.</p>
           </button>
 
-          <button onclick="loadDevScenario('TM9999', 'Please track this for me.')" class="text-left p-3.5 rounded-xl glass-card hover:border-amber-500/50 hover:bg-slate-800/80 transition-all group cursor-pointer">
+          <button onclick="loadDevScenario('TM9999', 'Please track this for me.')"
+            class="text-left p-3.5 rounded-xl glass-card hover:border-amber-500/50 hover:bg-slate-800/80 transition-all group cursor-pointer">
             <div class="flex items-center justify-between mb-1.5">
               <span class="font-mono text-xs font-bold text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded">TM9999</span>
-              <span class="text-[11px] font-semibold text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded-full border border-amber-500/20">G2 Missing Data</span>
+              <span
+                class="text-[11px] font-semibold text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded-full border border-amber-500/20">G2
+                Missing Data</span>
             </div>
             <p class="text-xs text-slate-200 font-medium group-hover:text-white">"Please track this for me."</p>
             <p class="text-[11px] text-slate-400 mt-1">Invalid ID: G2 suppresses citations, forces ask_info.</p>
@@ -843,34 +763,26 @@
       <div class="glass-panel rounded-2xl p-6 space-y-5">
         <form id="dev-investigate-form" onsubmit="handleDevInvestigate(event)" class="space-y-4">
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            
+
             <div>
-              <label for="dev-tracking-id" class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
+              <label for="dev-tracking-id"
+                class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
                 Tracking ID <span class="text-slate-500 font-normal">(Optional)</span>
               </label>
               <div class="relative">
-                <input 
-                  type="text" 
-                  id="dev-tracking-id" 
-                  placeholder="e.g. TM1018"
-                  list="shipments-datalist-dev"
-                  class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 font-mono text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 uppercase font-semibold"
-                />
+                <input type="text" id="dev-tracking-id" placeholder="e.g. TM1018" list="shipments-datalist-dev"
+                  class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 font-mono text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 uppercase font-semibold" />
                 <datalist id="shipments-datalist-dev"></datalist>
               </div>
             </div>
 
             <div class="md:col-span-2">
-              <label for="dev-question" class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
+              <label for="dev-question"
+                class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">
                 Customer Inquiry / Question <span class="text-rose-400">*</span>
               </label>
-              <input 
-                type="text" 
-                id="dev-question" 
-                required
-                placeholder="e.g. It's very delayed. Is it the weather?"
-                class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
-              />
+              <input type="text" id="dev-question" required placeholder="e.g. It's very delayed. Is it the weather?"
+                class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500" />
             </div>
 
           </div>
@@ -880,13 +792,12 @@
               <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
               <span>Guardrails Shield: G1 (Drafts), G2 (Citations), G3 (Escalate), G4 (Reply), G5 (Grounding)</span>
             </div>
-            
-            <button 
-              type="submit" 
-              id="dev-submit-btn" 
-              class="w-full sm:w-auto px-6 py-3 rounded-xl bg-gradient-to-r from-indigo-600 via-indigo-500 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-indigo-500/25 transition-all flex items-center justify-center space-x-2 cursor-pointer"
-            >
-              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+
+            <button type="submit" id="dev-submit-btn"
+              class="w-full sm:w-auto px-6 py-3 rounded-xl bg-gradient-to-r from-indigo-600 via-indigo-500 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-indigo-500/25 transition-all flex items-center justify-center space-x-2 cursor-pointer">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
               <span id="dev-submit-text">Execute Agent Loop</span>
             </button>
           </div>
@@ -898,35 +809,46 @@
         <div class="w-14 h-14 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
         <div>
           <h4 class="text-base font-bold text-white" id="dev-loading-stage">Agent Loop In Progress...</h4>
-          <p class="text-xs text-slate-400 mt-1" id="dev-loading-subtext">Executing tool calls, checking weather, and synthesizing decision under guardrails.</p>
+          <p class="text-xs text-slate-400 mt-1" id="dev-loading-subtext">Executing tool calls, checking weather, and
+            synthesizing decision under guardrails.</p>
         </div>
       </div>
 
       <!-- Developer Results Display -->
       <div id="dev-result-container" class="hidden space-y-6">
-        
+
         <!-- Decision Hero Card -->
         <div id="dev-decision-banner" class="rounded-2xl p-6 glass-panel transition-all">
           <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-            
+
             <div class="flex items-center space-x-4">
-              <div id="dev-decision-icon" class="w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg"></div>
+              <div id="dev-decision-icon" class="w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg">
+              </div>
               <div>
                 <div class="flex items-center space-x-2">
                   <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Agent Decision</span>
-                  <span id="dev-run-id-pill" class="font-mono text-[10px] text-slate-500 bg-slate-800/80 px-2 py-0.5 rounded">run_id: ...</span>
+                  <span id="dev-run-id-pill"
+                    class="font-mono text-[10px] text-slate-500 bg-slate-800/80 px-2 py-0.5 rounded">run_id: ...</span>
                 </div>
                 <div class="text-2xl font-black uppercase tracking-tight" id="dev-decision-text">...</div>
               </div>
             </div>
 
             <div class="flex items-center space-x-2">
-              <button onclick="copyDevReply()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium transition-colors flex items-center space-x-1.5 border border-slate-700 cursor-pointer">
-                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+              <button onclick="copyDevReply()"
+                class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium transition-colors flex items-center space-x-1.5 border border-slate-700 cursor-pointer">
+                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                </svg>
                 <span>Copy Reply</span>
               </button>
-              <button onclick="openRawTraceModal()" class="px-3 py-1.5 rounded-lg bg-indigo-600/30 hover:bg-indigo-600/50 text-indigo-300 text-xs font-medium transition-colors flex items-center space-x-1.5 border border-indigo-500/30 cursor-pointer">
-                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+              <button onclick="openRawTraceModal()"
+                class="px-3 py-1.5 rounded-lg bg-indigo-600/30 hover:bg-indigo-600/50 text-indigo-300 text-xs font-medium transition-colors flex items-center space-x-1.5 border border-indigo-500/30 cursor-pointer">
+                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                </svg>
                 <span>Inspect Trace JSON</span>
               </button>
             </div>
@@ -934,28 +856,36 @@
           </div>
 
           <div class="mt-6 pt-5 border-t border-slate-800/80">
-            <h4 class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Customer Communication (reply_to_user)</h4>
-            <div id="dev-reply-text" class="text-sm text-slate-200 leading-relaxed bg-slate-900/60 p-4 rounded-xl border border-slate-800"></div>
+            <h4 class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Customer Communication
+              (reply_to_user)</h4>
+            <div id="dev-reply-text"
+              class="text-sm text-slate-200 leading-relaxed bg-slate-900/60 p-4 rounded-xl border border-slate-800">
+            </div>
           </div>
         </div>
 
         <!-- DRAFT MESSAGE & CITATIONS DUAL GRID -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          
+
           <!-- Human-in-the-Loop Draft Card -->
           <div class="glass-panel rounded-2xl p-6 flex flex-col justify-between">
             <div>
               <div class="flex items-center justify-between mb-4">
                 <div class="flex items-center space-x-2">
-                  <div class="w-8 h-8 rounded-lg bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400">
-                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                  <div
+                    class="w-8 h-8 rounded-lg bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
                   </div>
                   <div>
                     <h4 class="text-sm font-bold text-white">Actionable Draft Message</h4>
                     <p class="text-[11px] text-slate-400">Human-in-the-Loop review & dispatch</p>
                   </div>
                 </div>
-                <span id="dev-draft-channel" class="px-2.5 py-1 text-xs font-mono font-semibold rounded-full bg-slate-800 text-slate-300 border border-slate-700">None</span>
+                <span id="dev-draft-channel"
+                  class="px-2.5 py-1 text-xs font-mono font-semibold rounded-full bg-slate-800 text-slate-300 border border-slate-700">None</span>
               </div>
 
               <div class="space-y-3">
@@ -965,19 +895,19 @@
                 </div>
                 <div>
                   <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Body:</span>
-                  <pre id="dev-draft-body" class="mt-1 p-3 rounded-xl bg-slate-900/90 border border-slate-800 text-xs font-mono text-slate-300 whitespace-pre-wrap max-h-48 overflow-y-auto">No draft generated for this decision.</pre>
+                  <pre id="dev-draft-body"
+                    class="mt-1 p-3 rounded-xl bg-slate-900/90 border border-slate-800 text-xs font-mono text-slate-300 whitespace-pre-wrap max-h-48 overflow-y-auto">No draft generated for this decision.</pre>
                 </div>
               </div>
             </div>
 
             <div class="mt-6 pt-4 border-t border-slate-800 flex items-center justify-between">
               <span id="dev-draft-status" class="text-xs font-mono text-slate-400">Status: pending</span>
-              <button 
-                id="dev-approve-btn" 
-                onclick="handleDevApproveDraft()" 
-                class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-semibold text-xs shadow-lg shadow-emerald-500/20 transition-all flex items-center space-x-1.5 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              <button id="dev-approve-btn" onclick="handleDevApproveDraft()"
+                class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-semibold text-xs shadow-lg shadow-emerald-500/20 transition-all flex items-center space-x-1.5 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
                 <span>Approve & Dispatch</span>
               </button>
             </div>
@@ -985,19 +915,24 @@
 
           <!-- Policy Citations & Guardrails Shield -->
           <div class="glass-panel rounded-2xl p-6 flex flex-col justify-between space-y-6">
-            
+
             <div>
               <div class="flex items-center justify-between mb-3">
                 <div class="flex items-center space-x-2">
-                  <div class="w-8 h-8 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400">
-                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                  <div
+                    class="w-8 h-8 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
                   </div>
                   <div>
                     <h4 class="text-sm font-bold text-white">Policy Citations (RAG Grounding)</h4>
                     <p class="text-[11px] text-slate-400">Verified against retrieved policy clauses</p>
                   </div>
                 </div>
-                <span id="dev-citations-count" class="text-xs font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">0 Cited</span>
+                <span id="dev-citations-count"
+                  class="text-xs font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">0 Cited</span>
               </div>
 
               <div id="dev-citations-list" class="space-y-2 max-h-40 overflow-y-auto">
@@ -1008,16 +943,19 @@
             <!-- Guardrails Matrix -->
             <div class="pt-4 border-t border-slate-800">
               <div class="flex items-center justify-between mb-3">
-                <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Deterministic Guardrails (Python)</span>
-                <span class="text-[11px] font-semibold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">Active</span>
+                <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Deterministic Guardrails
+                  (Python)</span>
+                <span
+                  class="text-[11px] font-semibold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">Active</span>
               </div>
-              
+
               <div class="grid grid-cols-5 gap-2 text-center font-mono">
                 <div class="p-2 rounded-lg bg-slate-900 border border-slate-800" title="G1: Draft integrity">
                   <div class="text-[10px] text-slate-400 font-bold">G1</div>
                   <div id="dev-g1" class="text-[9px] font-semibold text-emerald-400 mt-0.5">PASSED</div>
                 </div>
-                <div class="p-2 rounded-lg bg-slate-900 border border-slate-800" title="G2: No citations on ask_info or missing data">
+                <div class="p-2 rounded-lg bg-slate-900 border border-slate-800"
+                  title="G2: No citations on ask_info or missing data">
                   <div class="text-[10px] text-slate-400 font-bold">G2</div>
                   <div id="dev-g2" class="text-[9px] font-semibold text-emerald-400 mt-0.5">PASSED</div>
                 </div>
@@ -1029,7 +967,8 @@
                   <div class="text-[10px] text-slate-400 font-bold">G4</div>
                   <div id="dev-g4" class="text-[9px] font-semibold text-emerald-400 mt-0.5">PASSED</div>
                 </div>
-                <div class="p-2 rounded-lg bg-slate-900 border border-slate-800" title="G5: Suppress hallucinated citations">
+                <div class="p-2 rounded-lg bg-slate-900 border border-slate-800"
+                  title="G5: Suppress hallucinated citations">
                   <div class="text-[10px] text-slate-400 font-bold">G5</div>
                   <div id="dev-g5" class="text-[9px] font-semibold text-emerald-400 mt-0.5">PASSED</div>
                 </div>
@@ -1044,15 +983,21 @@
         <div class="glass-panel rounded-2xl p-6 space-y-4">
           <div class="flex items-center justify-between">
             <div class="flex items-center space-x-2">
-              <div class="w-8 h-8 rounded-lg bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400">
-                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+              <div
+                class="w-8 h-8 rounded-lg bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                </svg>
               </div>
               <div>
                 <h4 class="text-sm font-bold text-white">Agent Execution Trajectory</h4>
                 <p class="text-[11px] text-slate-400">Tool invocations, rationales, and latencies</p>
               </div>
             </div>
-            <span id="dev-steps-count" class="text-xs font-mono px-2.5 py-1 rounded bg-slate-800 text-indigo-400 font-semibold border border-slate-700">0 Steps</span>
+            <span id="dev-steps-count"
+              class="text-xs font-mono px-2.5 py-1 rounded bg-slate-800 text-indigo-400 font-semibold border border-slate-700">0
+              Steps</span>
           </div>
 
           <div id="dev-steps-list" class="space-y-3 pt-2"></div>
@@ -1064,7 +1009,7 @@
 
     <!-- DEV TAB 2: SHIPMENTS HUB -->
     <section id="dev-tab-shipments" class="dev-tab-content hidden space-y-6">
-      
+
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <div class="glass-panel rounded-xl p-4">
           <span class="text-xs text-slate-400 font-medium">Total Shipments</span>
@@ -1090,21 +1035,27 @@
 
       <div class="glass-panel rounded-xl p-4 flex flex-col sm:flex-row items-center justify-between gap-4">
         <div class="flex items-center space-x-2 w-full sm:w-80">
-          <input 
-            type="text" 
-            id="shipments-search" 
-            oninput="filterShipmentsTable()" 
+          <input type="text" id="shipments-search" oninput="filterShipmentsTable()"
             placeholder="Search by ID, city, courier..."
-            class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3.5 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
-          />
+            class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3.5 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500" />
         </div>
 
         <div class="flex items-center space-x-1.5 overflow-x-auto w-full sm:w-auto">
-          <button onclick="setShipmentFilter('all')" class="ship-filter-btn px-3 py-1.5 text-xs font-medium rounded-lg bg-indigo-600 text-white" data-filter="all">All</button>
-          <button onclick="setShipmentFilter('in_transit')" class="ship-filter-btn px-3 py-1.5 text-xs font-medium rounded-lg text-slate-400 hover:bg-slate-800" data-filter="in_transit">In Transit</button>
-          <button onclick="setShipmentFilter('delivered')" class="ship-filter-btn px-3 py-1.5 text-xs font-medium rounded-lg text-slate-400 hover:bg-slate-800" data-filter="delivered">Delivered</button>
-          <button onclick="setShipmentFilter('delayed')" class="ship-filter-btn px-3 py-1.5 text-xs font-medium rounded-lg text-slate-400 hover:bg-slate-800" data-filter="delayed">Delayed (>0d)</button>
-          <button onclick="setShipmentFilter('exception')" class="ship-filter-btn px-3 py-1.5 text-xs font-medium rounded-lg text-slate-400 hover:bg-slate-800" data-filter="exception">Exceptions</button>
+          <button onclick="setShipmentFilter('all')"
+            class="ship-filter-btn px-3 py-1.5 text-xs font-medium rounded-lg bg-indigo-600 text-white"
+            data-filter="all">All</button>
+          <button onclick="setShipmentFilter('in_transit')"
+            class="ship-filter-btn px-3 py-1.5 text-xs font-medium rounded-lg text-slate-400 hover:bg-slate-800"
+            data-filter="in_transit">In Transit</button>
+          <button onclick="setShipmentFilter('delivered')"
+            class="ship-filter-btn px-3 py-1.5 text-xs font-medium rounded-lg text-slate-400 hover:bg-slate-800"
+            data-filter="delivered">Delivered</button>
+          <button onclick="setShipmentFilter('delayed')"
+            class="ship-filter-btn px-3 py-1.5 text-xs font-medium rounded-lg text-slate-400 hover:bg-slate-800"
+            data-filter="delayed">Delayed (>0d)</button>
+          <button onclick="setShipmentFilter('exception')"
+            class="ship-filter-btn px-3 py-1.5 text-xs font-medium rounded-lg text-slate-400 hover:bg-slate-800"
+            data-filter="exception">Exceptions</button>
         </div>
       </div>
 
@@ -1133,20 +1084,26 @@
     <section id="dev-tab-weather" class="dev-tab-content hidden space-y-6">
       <div class="glass-panel rounded-2xl p-6 sm:p-8 space-y-6 glow-indigo">
         <div class="max-w-3xl">
-          <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-semibold uppercase tracking-wider mb-2">
-            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 00-9.78 2.096A4.001 4.001 0 003 15z"/></svg>
+          <div
+            class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-semibold uppercase tracking-wider mb-2">
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 00-9.78 2.096A4.001 4.001 0 003 15z" />
+            </svg>
             <span>Milestone 5 • Open-Meteo Integration</span>
           </div>
           <h3 class="text-2xl sm:text-3xl font-extrabold text-white">Live Courier Weather Intelligence</h3>
           <p class="text-sm text-slate-400 mt-2">
-            Directly test the M5 weather tool powered by Open-Meteo's Geocoding and Historical Archive API. Fetches precipitation (mm), maximum wind gusts (km/h), and flags adverse weather without mock data.
+            Directly test the M5 weather tool powered by Open-Meteo's Geocoding and Historical Archive API. Fetches
+            precipitation (mm), maximum wind gusts (km/h), and flags adverse weather without mock data.
           </p>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 p-4 rounded-xl bg-slate-900/80 border border-slate-800">
           <div>
             <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">City</label>
-            <select id="weather-city" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500">
+            <select id="weather-city"
+              class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500">
               <option value="Mumbai" selected>Mumbai</option>
               <option value="Delhi">Delhi</option>
               <option value="Chennai">Chennai</option>
@@ -1159,15 +1116,21 @@
           </div>
           <div>
             <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">Start Date</label>
-            <input type="date" id="weather-start" value="2026-10-27" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500 font-mono">
+            <input type="date" id="weather-start" value="2026-10-27"
+              class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500 font-mono">
           </div>
           <div>
             <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">End Date</label>
-            <input type="date" id="weather-end" value="2026-11-02" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500 font-mono">
+            <input type="date" id="weather-end" value="2026-11-02"
+              class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500 font-mono">
           </div>
           <div class="flex items-end">
-            <button onclick="fetchWeatherData()" class="w-full px-4 py-2 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white font-semibold text-xs shadow-md transition-all flex items-center justify-center space-x-1.5 cursor-pointer">
-              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+            <button onclick="fetchWeatherData()"
+              class="w-full px-4 py-2 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white font-semibold text-xs shadow-md transition-all flex items-center justify-center space-x-1.5 cursor-pointer">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+              </svg>
               <span>Query Weather API</span>
             </button>
           </div>
@@ -1193,15 +1156,18 @@
           </div>
 
           <div class="p-5 rounded-xl bg-slate-900/90 border border-slate-800">
-            <h4 class="text-xs font-semibold uppercase tracking-wider text-slate-300 mb-4">Daily Precipitation & Max Wind Speed Chart</h4>
+            <h4 class="text-xs font-semibold uppercase tracking-wider text-slate-300 mb-4">Daily Precipitation & Max
+              Wind Speed Chart</h4>
             <div class="h-64">
               <canvas id="weatherChart"></canvas>
             </div>
           </div>
 
           <div>
-            <h4 class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Raw get_weather JSON response</h4>
-            <pre id="weather-raw-json" class="p-4 rounded-xl bg-slate-950 border border-slate-800 text-xs font-mono text-cyan-300 overflow-x-auto max-h-48"></pre>
+            <h4 class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Raw get_weather JSON response
+            </h4>
+            <pre id="weather-raw-json"
+              class="p-4 rounded-xl bg-slate-950 border border-slate-800 text-xs font-mono text-cyan-300 overflow-x-auto max-h-48"></pre>
           </div>
         </div>
 
@@ -1212,23 +1178,35 @@
     <section id="dev-tab-policies" class="dev-tab-content hidden space-y-6">
       <div class="glass-panel rounded-2xl p-6 sm:p-8 space-y-6">
         <div>
-          <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 text-xs font-semibold uppercase tracking-wider mb-2">
-            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+          <div
+            class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 text-xs font-semibold uppercase tracking-wider mb-2">
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+            </svg>
             <span>Policy Vector Knowledge Base</span>
           </div>
           <h3 class="text-2xl sm:text-3xl font-extrabold text-white">Company Operating Policies (RAG Corpus)</h3>
           <p class="text-sm text-slate-400 mt-2">
-            All agent decisions cite verified clauses stored in the ChromaDB vector index. Citations are validated deterministically by Guardrail G5.
+            All agent decisions cite verified clauses stored in the ChromaDB vector index. Citations are validated
+            deterministically by Guardrail G5.
           </p>
         </div>
 
         <div class="flex items-center space-x-2 border-b border-slate-800 pb-3">
-          <button onclick="showPolicyDoc('courier')" id="pdoc-btn-courier" class="pdoc-btn px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-indigo-600 text-white cursor-pointer">Courier Delivery Policy</button>
-          <button onclick="showPolicyDoc('escalation')" id="pdoc-btn-escalation" class="pdoc-btn px-3.5 py-1.5 text-xs font-semibold rounded-lg text-slate-400 hover:bg-slate-800 cursor-pointer">Escalation Policy</button>
-          <button onclick="showPolicyDoc('refund')" id="pdoc-btn-refund" class="pdoc-btn px-3.5 py-1.5 text-xs font-semibold rounded-lg text-slate-400 hover:bg-slate-800 cursor-pointer">Retailer Refund Policy</button>
+          <button onclick="showPolicyDoc('courier')" id="pdoc-btn-courier"
+            class="pdoc-btn px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-indigo-600 text-white cursor-pointer">Courier
+            Delivery Policy</button>
+          <button onclick="showPolicyDoc('escalation')" id="pdoc-btn-escalation"
+            class="pdoc-btn px-3.5 py-1.5 text-xs font-semibold rounded-lg text-slate-400 hover:bg-slate-800 cursor-pointer">Escalation
+            Policy</button>
+          <button onclick="showPolicyDoc('refund')" id="pdoc-btn-refund"
+            class="pdoc-btn px-3.5 py-1.5 text-xs font-semibold rounded-lg text-slate-400 hover:bg-slate-800 cursor-pointer">Retailer
+            Refund Policy</button>
         </div>
 
-        <div id="policy-content" class="p-6 rounded-xl bg-slate-900/90 border border-slate-800 text-slate-300 text-xs leading-relaxed space-y-4 font-mono whitespace-pre-wrap max-h-[600px] overflow-y-auto">
+        <div id="policy-content"
+          class="p-6 rounded-xl bg-slate-900/90 border border-slate-800 text-slate-300 text-xs leading-relaxed space-y-4 font-mono whitespace-pre-wrap max-h-[600px] overflow-y-auto">
           Loading policy text...
         </div>
       </div>
@@ -1239,15 +1217,24 @@
       <div class="glass-panel rounded-2xl p-6 sm:p-8 space-y-6">
         <div class="flex items-center justify-between">
           <div>
-            <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-semibold uppercase tracking-wider mb-2">
-              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            <div
+              class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-semibold uppercase tracking-wider mb-2">
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
               <span>Auditable Log Store</span>
             </div>
             <h3 class="text-2xl sm:text-3xl font-extrabold text-white">Execution Traces & Audit History</h3>
-            <p class="text-sm text-slate-400 mt-1">Full reproduction traces saved on disk in <code class="font-mono text-indigo-300">traces/</code>.</p>
+            <p class="text-sm text-slate-400 mt-1">Full reproduction traces saved on disk in <code
+                class="font-mono text-indigo-300">traces/</code>.</p>
           </div>
-          <button onclick="loadTracesHistory()" class="px-3.5 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium border border-slate-700 transition-colors flex items-center space-x-1.5 cursor-pointer">
-            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+          <button onclick="loadTracesHistory()"
+            class="px-3.5 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium border border-slate-700 transition-colors flex items-center space-x-1.5 cursor-pointer">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+            </svg>
             <span>Refresh</span>
           </button>
         </div>
@@ -1278,33 +1265,45 @@
   <!-- ===================================================================== -->
   <footer class="w-full border-t border-slate-800/80 py-8 px-4 sm:px-6 lg:px-8 mt-8 text-center space-y-4">
     <div class="flex flex-wrap items-center justify-center gap-4 text-xs">
-      <button onclick="goToHome()" class="text-slate-400 hover:text-white transition-colors cursor-pointer">Home Portal</button>
+      <button onclick="goToHome()" class="text-slate-400 hover:text-white transition-colors cursor-pointer">Home
+        Portal</button>
       <span class="text-slate-700">&bull;</span>
-      <button onclick="setAppMode(currentAppMode === 'user' ? 'dev' : 'user')" class="text-indigo-400 hover:text-indigo-300 font-semibold transition-colors cursor-pointer">
+      <button onclick="setAppMode(currentAppMode === 'user' ? 'dev' : 'user')"
+        class="text-indigo-400 hover:text-indigo-300 font-semibold transition-colors cursor-pointer">
         <span id="footer-mode-toggle-text">Switch to Developer Console &#8594;</span>
       </button>
       <span class="text-slate-700">&bull;</span>
-      <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'})" class="text-slate-400 hover:text-white transition-colors">Back to Top</a>
+      <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'})"
+        class="text-slate-400 hover:text-white transition-colors">Back to Top</a>
     </div>
     <div class="flex justify-center pt-1">
-      <div class="inline-flex items-center space-x-2.5 px-5 py-2.5 rounded-full bg-slate-900/90 border border-slate-700/80 shadow-xl shadow-indigo-500/10">
+      <div
+        class="inline-flex items-center space-x-2.5 px-5 py-2.5 rounded-full bg-slate-900/90 border border-slate-700/80 shadow-xl shadow-indigo-500/10">
         <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-        <span class="text-xs text-slate-300 font-medium">Designed &amp; built by&nbsp;<span class="shine-text text-sm">Gurjit Singh</span></span>
+        <span class="text-xs text-slate-300 font-medium">Designed &amp; built by&nbsp;<span
+            class="shine-text text-sm">Gurjit Singh</span></span>
       </div>
     </div>
-    <p class="text-[11px] text-slate-600">TrackMate &copy; 2026 &bull; Autonomous Delivery Investigation Platform &bull; FastAPI, LangChain &amp; Google Gemini</p>
+    <p class="text-[11px] text-slate-600">TrackMate &copy; 2026 &bull; Autonomous Delivery Investigation Platform &bull;
+      FastAPI, LangChain &amp; Google Gemini</p>
   </footer>
 
   <!-- MODAL: RAW TRACE JSON INSPECTOR -->
-  <div id="trace-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-    <div class="glass-panel w-full max-w-4xl max-h-[85vh] rounded-2xl flex flex-col overflow-hidden shadow-2xl border border-slate-700">
+  <div id="trace-modal"
+    class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+    <div
+      class="glass-panel w-full max-w-4xl max-h-[85vh] rounded-2xl flex flex-col overflow-hidden shadow-2xl border border-slate-700">
       <div class="p-4 px-6 border-b border-slate-800 flex items-center justify-between bg-slate-900">
         <div class="flex items-center space-x-2">
           <span class="text-sm font-bold text-white">Full Trace JSON</span>
-          <span id="modal-run-id" class="font-mono text-xs text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded">...</span>
+          <span id="modal-run-id"
+            class="font-mono text-xs text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded">...</span>
         </div>
-        <button onclick="closeTraceModal()" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800 cursor-pointer">
-          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        <button onclick="closeTraceModal()"
+          class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800 cursor-pointer">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
         </button>
       </div>
       <div class="p-6 overflow-y-auto flex-1 font-mono text-xs text-slate-300 bg-slate-950">
@@ -1315,7 +1314,8 @@
 
   <!-- TOAST NOTIFICATION -->
   <div id="toast" class="fixed bottom-6 right-6 z-50 hidden transition-all duration-300">
-    <div id="toast-box" class="px-4 py-3 rounded-xl shadow-xl border flex items-center space-x-2 text-xs font-semibold text-white bg-slate-900 border-indigo-500/50">
+    <div id="toast-box"
+      class="px-4 py-3 rounded-xl shadow-xl border flex items-center space-x-2 text-xs font-semibold text-white bg-slate-900 border-indigo-500/50">
       <span id="toast-message">Message</span>
     </div>
   </div>
@@ -1344,7 +1344,7 @@
         userBtn.className = "flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all bg-indigo-600 text-white shadow";
         devBtn.className = "flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all text-slate-400 hover:text-white";
         userNav.style.display = 'flex';
-        devNav.style.display  = 'none';
+        devNav.style.display = 'none';
         devContainer.classList.add('hidden');
         userContainer.classList.remove('hidden');
         badge.innerText = "Consumer Portal";
@@ -1356,7 +1356,7 @@
         devBtn.className = "flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all bg-indigo-600 text-white shadow";
         userBtn.className = "flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all text-slate-400 hover:text-white";
         userNav.style.display = 'none';
-        devNav.style.display  = 'flex';
+        devNav.style.display = 'flex';
         userContainer.classList.add('hidden');
         devContainer.classList.remove('hidden');
         badge.innerText = "Developer Console";
@@ -1635,7 +1635,7 @@
         document.getElementById('dev-draft-status').innerText = `Status: ${draft.status}`;
         document.getElementById('dev-draft-status').className = "text-xs font-mono " + (draft.status === 'approved' ? "text-emerald-400 font-bold" : "text-amber-400");
         approveBtn.disabled = draft.status === 'approved';
-        approveBtn.innerHTML = draft.status === 'approved' 
+        approveBtn.innerHTML = draft.status === 'approved'
           ? '<svg class="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><span>Approved & Sent</span>'
           : '<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><span>Approve & Dispatch</span>';
       } else {
@@ -1697,8 +1697,8 @@
       list.innerHTML = steps.map((s, idx) => {
         const isTool = s.action === 'call_tool';
         const toolBadgeColor = s.tool === 'get_weather' ? 'text-cyan-400 bg-cyan-500/10 border-cyan-500/20' :
-                               s.tool === 'search_policies' ? 'text-purple-400 bg-purple-500/10 border-purple-500/20' :
-                               'text-indigo-400 bg-indigo-500/10 border-indigo-500/20';
+          s.tool === 'search_policies' ? 'text-purple-400 bg-purple-500/10 border-purple-500/20' :
+            'text-indigo-400 bg-indigo-500/10 border-indigo-500/20';
         return `
           <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-2">
             <div class="flex items-center justify-between text-xs">
@@ -1739,7 +1739,7 @@
         document.getElementById('dev-draft-status').innerText = `Status: approved`;
         document.getElementById('dev-draft-status').className = "text-xs font-mono text-emerald-400 font-bold";
         btn.innerHTML = '<svg class="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><span>Approved & Sent</span>';
-        
+
         showToast("Draft approved! Appended to outbox.jsonl", "success");
       } catch (err) {
         btn.disabled = false;
@@ -1805,10 +1805,10 @@
     function filterShipmentsTable() {
       const q = (document.getElementById('shipments-search').value || '').toLowerCase();
       const filtered = shipmentsData.filter(s => {
-        const matchesQuery = s.tracking_id.toLowerCase().includes(q) || 
-                             s.destination_city.toLowerCase().includes(q) || 
-                             s.courier.toLowerCase().includes(q) || 
-                             s.order_id.toLowerCase().includes(q);
+        const matchesQuery = s.tracking_id.toLowerCase().includes(q) ||
+          s.destination_city.toLowerCase().includes(q) ||
+          s.courier.toLowerCase().includes(q) ||
+          s.order_id.toLowerCase().includes(q);
         if (!matchesQuery) return false;
 
         if (activeShipmentFilter === 'in_transit') return s.status === 'in_transit';
@@ -1826,13 +1826,13 @@
         const derived = s.derived || {};
         const delay = derived.days_past_estimate || 0;
         const delayBadge = delay > 3 ? `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-rose-500/20 text-rose-300">${delay}d (escalate)</span>` :
-                           delay > 0 ? `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300">${delay}d (normal)</span>` :
-                           `<span class="text-slate-500">0d</span>`;
-        
+          delay > 0 ? `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300">${delay}d (normal)</span>` :
+            `<span class="text-slate-500">0d</span>`;
+
         const statusBadge = s.status === 'delivered' ? `<span class="text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">Delivered</span>` :
-                            s.status === 'out_for_delivery' ? `<span class="text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded border border-cyan-500/20">Out for Delivery</span>` :
-                            s.exception ? `<span class="text-rose-400 bg-rose-500/10 px-2 py-0.5 rounded border border-rose-500/20">${s.exception}</span>` :
-                            `<span class="text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded border border-indigo-500/20">In Transit</span>`;
+          s.status === 'out_for_delivery' ? `<span class="text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded border border-cyan-500/20">Out for Delivery</span>` :
+            s.exception ? `<span class="text-rose-400 bg-rose-500/10 px-2 py-0.5 rounded border border-rose-500/20">${s.exception}</span>` :
+              `<span class="text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded border border-indigo-500/20">In Transit</span>`;
 
         return `
           <tr class="hover:bg-slate-800/40 transition-colors">
@@ -1967,7 +1967,7 @@
         if (!resp.ok) return;
         const traces = await resp.json();
         const tbody = document.getElementById('traces-table-body');
-        
+
         if (traces.length === 0) {
           tbody.innerHTML = '<tr><td colspan="7" class="py-6 text-center text-slate-500">No traces recorded yet.</td></tr>';
           return;
@@ -1975,9 +1975,9 @@
 
         tbody.innerHTML = traces.map(t => {
           const decisionBadge = t.decision === 'escalate' ? '<span class="text-rose-400 bg-rose-500/10 px-2 py-0.5 rounded font-mono font-bold">escalate</span>' :
-                                t.decision === 'ask_info' ? '<span class="text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded font-mono font-bold">ask_info</span>' :
-                                '<span class="text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded font-mono font-bold">update</span>';
-          
+            t.decision === 'ask_info' ? '<span class="text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded font-mono font-bold">ask_info</span>' :
+              '<span class="text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded font-mono font-bold">update</span>';
+
           return `
             <tr class="hover:bg-slate-800/40 transition-colors">
               <td class="py-3 px-4 font-mono text-indigo-400 font-bold">${t.run_id.slice(0, 10)}...</td>
@@ -2024,114 +2024,224 @@
       const toast = document.getElementById('toast');
       const box = document.getElementById('toast-box');
       document.getElementById('toast-message').innerText = msg;
-      box.className = type === "error" 
+      box.className = type === "error"
         ? "px-4 py-3 rounded-xl shadow-xl border flex items-center space-x-2 text-xs font-semibold text-white bg-rose-950 border-rose-700"
         : "px-4 py-3 rounded-xl shadow-xl border flex items-center space-x-2 text-xs font-semibold text-white bg-slate-900 border-indigo-500/50 glow-indigo";
-      
+
       toast.classList.remove('hidden');
       setTimeout(() => { toast.classList.add('hidden'); }, 3500);
     }
 
     // =========================================================================
-    // HOW TRACKMATE WORKS: ANIMATED DIAGRAM CONTROLLER
+    // HOW TRACKMATE WORKS: ANIMATED FLOW DIAGRAM
     // =========================================================================
     var diagramCurrentStep = 1;
-    var isDiagramPlaying   = true;
-    var diagramInterval    = null;
-    var TOTAL_DIAGRAM_STEPS   = 6;
-    var DIAGRAM_STEP_DURATION = 3800;
+    var TOTAL_DIAGRAM_STEPS = 6;
+    var wfAuto = true;
+    var wfTimer = null;
 
-    var stepMeta = {
-      1: { title:'Stage 01: Inquiry Ingestion & Triage',     badge:'Input Sanitized',
-           pm:'Triages queries, normalises tracking IDs, rejects invalids before wasting any compute.',
-           dev:'strip whitespace -> TM\\d{4} regex -> validate -> payload prepared' },
-      2: { title:'Stage 02: Shipment State Inspection',      badge:'SLA Evaluated',
-           pm:'Checks carrier SLA vs actual hub scans to tell real delays from early-bird queries.',
-           dev:'get_shipment(id) -> days_past_estimate, days_since_last_scan derived' },
-      3: { title:'Stage 03: Weather Verification (M5)',      badge:'Weather Grounded',
-           pm:'Gives customers transparent weather context (storms, rain) without waiving refund rights.',
-           dev:'get_weather(city, dates) -> Open-Meteo historical API -> context flag only' },
-      4: { title:'Stage 04: Semantic Policy RAG',            badge:'Policy Grounded',
-           pm:'Grounds every reply in the actual contract clauses, refund caps, and SLA windows.',
-           dev:'search_policies(query) -> ChromaDB cosine -> CLAUSE_REFUND_01 returned' },
-      5: { title:'Stage 05: Guardrails Shield (G1-G5)',      badge:'Policy Compliant',
-           pm:'Zero hallucination: >3-day delays auto-escalate; AI cannot promise refunds.',
-           dev:'G1 schema + G2 citation strip + G3 damage + G4 reply + G5 retrieval gate' },
-      6: { title:'Stage 06: Resolution & Human Outbox',      badge:'Action Staged',
-           pm:'Sends a professional reply and queues disputes for supervisor one-click approval.',
-           dev:'POST /approve/{draft_id} -> idempotent append -> outbox.jsonl' }
-    };
+    var WORKFLOW_STEPS = [
+      {
+        node: 'Question & ID', sub: 'triage', title: 'Inquiry Ingestion & Triage', tag: 'Triage', color: '#818cf8',
+        input: 'Question + tracking ID', output: 'Validated request',
+        why: 'Customers can enter a tracking number naturally, while invalid requests are caught early.',
+        how: 'Cleans the input, checks it matches the expected ID format, then starts the investigation.'
+      },
+      {
+        node: 'Shipment scans', sub: 'get_shipment', title: 'Shipment State Inspection', tag: 'DB', color: '#22d3ee',
+        input: 'Carrier scans', output: 'Delay assessment',
+        why: 'Separates a genuine delay from a routine check-in, so the response reflects what is happening.',
+        how: 'Checks the latest carrier scans against the promised delivery date and service window.'
+      },
+      {
+        node: 'Weather context', sub: 'get_weather', title: 'Weather Verification (M5)', tag: 'Context', color: '#38bdf8',
+        input: 'Destination + dates', output: 'Weather context',
+        why: 'Customers get a clear explanation of major weather disruptions without changing their service entitlements.',
+        how: 'Looks up local weather during the delay and uses it as context, not as a decision by itself.'
+      },
+      {
+        node: 'Policy guidance', sub: 'search_policies', title: 'Semantic Policy RAG', tag: 'RAG', color: '#c084fc',
+        input: 'Case summary', output: 'Matching clauses',
+        why: 'Replies follow the actual delivery and refund policies instead of relying on a guess.',
+        how: 'Finds the most relevant policy sections and gives the response the matching rules to follow.'
+      },
+      {
+        node: 'Guardrails G1–G5', sub: 'safety', title: 'Guardrails Shield (G1–G5)', tag: 'Safety', color: '#f59e0b',
+        input: 'Draft decision', output: 'Verified decision',
+        why: 'Prevents unsupported promises and sends serious or overdue cases to a person for review.',
+        how: 'Checks the response against fixed rules for evidence, policy, damage, and escalation.'
+      },
+      {
+        node: 'Reply & approval', sub: 'outbox', title: 'Resolution & Human Outbox', tag: 'Action', color: '#34d399',
+        input: 'Verified decision', output: 'Reply + approval queue',
+        why: 'Customers receive a considerate reply, while sensitive actions stay under supervisor control.',
+        how: 'Saves a reply draft and queues proposed actions for approval before they are sent.'
+      }
+    ];
 
-    function selectDiagramStep(stepNum, pauseAuto) {
-      if (pauseAuto === undefined) pauseAuto = false;
+    var WF_NODES = [
+      { x: 10, y: 92, w: 150, h: 56 },
+      { x: 250, y: 11, w: 170, h: 50 },
+      { x: 250, y: 95, w: 170, h: 50 },
+      { x: 250, y: 179, w: 170, h: 50 },
+      { x: 520, y: 92, w: 150, h: 56 },
+      { x: 770, y: 92, w: 170, h: 56 }
+    ];
+
+    var WF_LINKS = [
+      [1, 2, 'M160 120 C205 120 205 36 250 36'],
+      [1, 3, 'M160 120 L250 120'],
+      [1, 4, 'M160 120 C205 120 205 204 250 204'],
+      [2, 5, 'M420 36 C470 36 470 120 520 120'],
+      [3, 5, 'M420 120 L520 120'],
+      [4, 5, 'M420 204 C470 204 470 120 520 120'],
+      [5, 6, 'M670 120 L770 120']
+    ];
+
+    function wfBuildDiagram() {
+      var svg = document.getElementById('wf-svg');
+      if (!svg || svg.getAttribute('data-built')) return;
+      var h = '';
+
+      WF_LINKS.forEach(function (l, i) {
+        var col = WORKFLOW_STEPS[((l[0] === 1 || l[0] === 5) ? l[1] : l[0]) - 1].color;
+        h += '<g class="wf-link" data-from="' + l[0] + '" data-to="' + l[1] + '">' +
+          '<path d="' + l[2] + '" fill="none" stroke="#1e293b" stroke-width="2"/>' +
+          '<path class="wf-flow" d="' + l[2] + '" fill="none" stroke="' + col + '" stroke-width="2" stroke-linecap="round"/>' +
+          '<circle r="3.5" fill="' + col + '"><animateMotion path="' + l[2] + '" dur="2.4s" begin="-' + (i * 0.5) + 's" repeatCount="indefinite"/></circle>' +
+          '</g>';
+      });
+
+      WF_NODES.forEach(function (n, i) {
+        var st = WORKFLOW_STEPS[i];
+        h += '<g class="wf-node" data-step="' + (i + 1) + '" style="cursor:pointer" onclick="selectDiagramStep(' + (i + 1) + ')">' +
+          '<rect class="wf-node-rect" x="' + n.x + '" y="' + n.y + '" width="' + n.w + '" height="' + n.h + '" rx="12" fill="#0b1224" stroke="#1e293b" stroke-width="1.5"/>' +
+          '<text class="wf-node-sub" x="' + (n.x + 16) + '" y="' + (n.y + 20) + '" font-size="10" font-weight="600" font-family="JetBrains Mono, monospace" fill="#64748b">0' + (i + 1) + ' · ' + st.sub + '</text>' +
+          '<text class="wf-node-title" x="' + (n.x + 16) + '" y="' + (n.y + n.h - 13) + '" font-size="13" font-weight="600" font-family="Plus Jakarta Sans, sans-serif" fill="#94a3b8">' + st.node + '</text>' +
+          '</g>';
+      });
+
+      h += '<rect id="wf-pulse" rx="15" fill="none" stroke-width="2" pointer-events="none" opacity="0">' +
+        '<animate attributeName="opacity" values="0.9;0;0.9" dur="2s" repeatCount="indefinite"/>' +
+        '</rect>';
+
+      svg.innerHTML = h;
+      svg.setAttribute('data-built', '1');
+    }
+
+    function wfUpdateToggle() {
+      var b = document.getElementById('wf-toggle');
+      if (!b) return;
+      b.innerHTML = '<span class="w-1.5 h-1.5 rounded-full ' + (wfAuto ? 'bg-emerald-400 animate-pulse' : 'bg-slate-500') + '"></span><span>' + (wfAuto ? 'Pause' : 'Play') + '</span>';
+    }
+
+    function toggleDiagramAuto() {
+      wfAuto = !wfAuto;
+      wfUpdateToggle();
+    }
+
+    function startDiagramAuto() {
+      if (wfTimer) clearInterval(wfTimer);
+      wfTimer = setInterval(function () {
+        if (wfAuto) renderDiagramStep(diagramCurrentStep % TOTAL_DIAGRAM_STEPS + 1);
+      }, 3800);
+      wfUpdateToggle();
+    }
+
+    // User clicks pause auto-play and jump to that step
+    function selectDiagramStep(stepNum) {
+      wfAuto = false;
+      wfUpdateToggle();
+      renderDiagramStep(stepNum);
+    }
+
+    function renderDiagramStep(stepNum) {
+      stepNum = Math.max(1, Math.min(TOTAL_DIAGRAM_STEPS, stepNum));
       diagramCurrentStep = stepNum;
-      if (pauseAuto && isDiagramPlaying) { toggleDiagramPlay(); }
-      for (var i = 1; i <= TOTAL_DIAGRAM_STEPS; i++) {
-        var card = document.getElementById('acc-card-'    + i);
-        var cnt  = document.getElementById('acc-content-' + i);
-        var bdg  = document.getElementById('acc-badge-'   + i);
-        var chv  = document.getElementById('acc-chevron-' + i);
-        var nd   = document.getElementById('d-node-'      + i);
-        if (i === stepNum) {
-          if (card) card.className = 'acc-step-card p-3.5 rounded-xl border border-indigo-500 bg-slate-900/95 shadow-lg shadow-indigo-500/20 transition-all cursor-pointer';
-          if (cnt)  cnt.classList.remove('hidden');
-          if (bdg)  bdg.className = 'w-6 h-6 rounded-md bg-indigo-600 text-white font-bold text-[11px] flex items-center justify-center font-mono ring-2 ring-indigo-400';
-          if (chv)  { chv.classList.add('rotate-180'); chv.classList.add('text-indigo-400'); }
-          if (nd)   nd.className  = 'diagram-node px-4 py-2 rounded-xl bg-slate-900 border-2 border-indigo-500 shadow-lg shadow-indigo-500/40 ring-2 ring-indigo-500/30 scale-105 transition-all cursor-pointer flex items-center space-x-2.5';
-        } else {
-          if (card) card.className = 'acc-step-card p-3.5 rounded-xl border border-slate-800/90 bg-slate-900/40 transition-all cursor-pointer hover:border-slate-700';
-          if (cnt)  cnt.classList.add('hidden');
-          if (bdg)  bdg.className = 'w-6 h-6 rounded-md bg-slate-800 text-slate-400 font-bold text-[11px] flex items-center justify-center font-mono';
-          if (chv)  { chv.classList.remove('rotate-180'); chv.classList.remove('text-indigo-400'); }
-          if (nd)   nd.className  = 'diagram-node p-2.5 rounded-lg bg-slate-900/90 border border-slate-800 transition-all cursor-pointer text-center space-y-1 hover:border-slate-700 scale-100 shadow-none';
-        }
-      }
-      var m = stepMeta[stepNum];
-      if (m) {
-        var t = document.getElementById('hud-step-title'); if (t) t.innerText = m.title;
-        var b = document.getElementById('hud-badge');      if (b) b.innerText = m.badge;
-        var p = document.getElementById('hud-pm-text');    if (p) p.innerText = m.pm;
-        var d = document.getElementById('hud-dev-code');   if (d) d.innerText = m.dev;
-      }
-      var sl = document.getElementById('diagram-current-step-label'); if (sl) sl.innerText = stepNum;
-      var pr = document.getElementById('diagram-step-progress');      if (pr) pr.style.width = (stepNum/TOTAL_DIAGRAM_STEPS*100)+'%';
-    }
+      var s = WORKFLOW_STEPS[stepNum - 1];
 
-    function toggleDiagramPlay() {
-      isDiagramPlaying = !isDiagramPlaying;
-      var bt = document.getElementById('diagram-play-text');
-      var bi = document.getElementById('diagram-play-icon');
-      var sp = document.getElementById('diagram-play-status-pill');
-      if (isDiagramPlaying) {
-        if (bt) bt.innerText = 'Pause';
-        if (bi) bi.innerText = '⏸';
-        if (sp) sp.innerText = 'Auto-Advancing (3.8s)';
-        startDiagramTimer();
-      } else {
-        if (bt) bt.innerText = 'Play';
-        if (bi) bi.innerText = '▶';
-        if (sp) sp.innerText = 'Paused at Step ' + diagramCurrentStep;
-        clearInterval(diagramInterval);
+      wfBuildDiagram();
+
+      // Nodes
+      document.querySelectorAll('#wf-svg .wf-node').forEach(function (g) {
+        var n = parseInt(g.getAttribute('data-step'), 10);
+        var st = WORKFLOW_STEPS[n - 1];
+        var active = n === stepNum;
+        var r = g.querySelector('.wf-node-rect');
+        r.setAttribute('stroke', active ? st.color : '#1e293b');
+        r.setAttribute('fill', active ? st.color + '14' : '#0b1224');
+        g.querySelector('.wf-node-sub').setAttribute('fill', active ? st.color : '#64748b');
+        g.querySelector('.wf-node-title').setAttribute('fill', active ? '#ffffff' : '#94a3b8');
+      });
+
+      // Links
+      document.querySelectorAll('#wf-svg .wf-link').forEach(function (g) {
+        var on = parseInt(g.getAttribute('data-from'), 10) === stepNum || parseInt(g.getAttribute('data-to'), 10) === stepNum;
+        g.setAttribute('opacity', on ? '1' : '0.3');
+      });
+
+      // Pulse ring
+      var nb = WF_NODES[stepNum - 1];
+      var p = document.getElementById('wf-pulse');
+      if (p) {
+        p.setAttribute('x', nb.x - 5);
+        p.setAttribute('y', nb.y - 5);
+        p.setAttribute('width', nb.w + 10);
+        p.setAttribute('height', nb.h + 10);
+        p.setAttribute('stroke', s.color);
       }
-    }
-    function prevDiagramStep() { var t=diagramCurrentStep-1; if(t<1) t=TOTAL_DIAGRAM_STEPS; selectDiagramStep(t,true); }
-    function nextDiagramStep() { var t=diagramCurrentStep+1; if(t>TOTAL_DIAGRAM_STEPS) t=1; selectDiagramStep(t,true); }
-    function startDiagramTimer() {
-      clearInterval(diagramInterval);
-      diagramInterval = setInterval(function() {
-        if (!isDiagramPlaying) return;
-        diagramCurrentStep++;
-        if (diagramCurrentStep > TOTAL_DIAGRAM_STEPS) diagramCurrentStep = 1;
-        selectDiagramStep(diagramCurrentStep, false);
-      }, DIAGRAM_STEP_DURATION);
+
+      // Detail panel
+      var panel = document.getElementById('wf-panel');
+      if (panel) {
+        var prevDisabled = stepNum === 1;
+        var nextDisabled = stepNum === TOTAL_DIAGRAM_STEPS;
+        var btn = 'w-9 h-9 rounded-lg border border-slate-700 text-slate-300 flex items-center justify-center transition-colors cursor-pointer ';
+        panel.innerHTML = '' +
+          '<div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4">' +
+          '<div class="space-y-2">' +
+          '<div class="flex items-center gap-2.5">' +
+          '<span class="text-[11px] font-mono text-slate-500">Step ' + stepNum + ' of ' + TOTAL_DIAGRAM_STEPS + '</span>' +
+          '<span class="text-[10px] font-mono font-semibold px-2 py-0.5 rounded-full border" style="color:' + s.color + ';background:' + s.color + '14;border-color:' + s.color + '33;">' + s.tag + '</span>' +
+          '</div>' +
+          '<h3 class="text-lg sm:text-xl font-bold text-white tracking-tight">' + s.title + '</h3>' +
+          '</div>' +
+          '<div class="flex items-center gap-2 shrink-0">' +
+          '<button type="button" aria-label="Previous step" onclick="selectDiagramStep(' + (stepNum - 1) + ')" ' + (prevDisabled ? 'disabled' : '') + ' class="' + btn + (prevDisabled ? 'opacity-30 cursor-not-allowed' : 'hover:bg-slate-800 hover:text-white') + '">' +
+          '<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg></button>' +
+          '<button type="button" aria-label="Next step" onclick="selectDiagramStep(' + (stepNum + 1) + ')" ' + (nextDisabled ? 'disabled' : '') + ' class="' + btn + (nextDisabled ? 'opacity-30 cursor-not-allowed' : 'hover:bg-slate-800 hover:text-white') + '">' +
+          '<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></button>' +
+          '</div>' +
+          '</div>' +
+
+          '<div class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-3 mt-3">' +
+          '<div>' +
+          '<p class="text-[10px] font-bold uppercase tracking-[0.18em] mb-2" style="color:' + s.color + ';">Why it matters</p>' +
+          '<p class="text-sm text-slate-300 leading-relaxed">' + s.why + '</p>' +
+          '</div>' +
+          '<div>' +
+          '<p class="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500 mb-2">How it works</p>' +
+          '<p class="text-sm text-slate-400 leading-relaxed">' + s.how + '</p>' +
+          '</div>' +
+          '</div>' +
+
+          '<div class="mt-4 pt-3 border-t border-slate-800/80 flex flex-wrap items-center gap-3 text-[11px] font-mono">' +
+          '<span class="text-slate-500 uppercase tracking-wider">In</span>' +
+          '<span class="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-slate-300">' + s.input + '</span>' +
+          '<svg class="w-4 h-4 text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>' +
+          '<span class="text-slate-500 uppercase tracking-wider">Out</span>' +
+          '<span class="px-2.5 py-1 rounded-md border" style="color:' + s.color + ';background:' + s.color + '10;border-color:' + s.color + '33;">' + s.output + '</span>' +
+          '</div>';
+      }
     }
 
     window.addEventListener('DOMContentLoaded', () => {
       loadShipments();
       setAppMode('user');
-      selectDiagramStep(1, false);
-      startDiagramTimer();
+      renderDiagramStep(1);
+      startDiagramAuto();
     });
   </script>
 </body>
+
 </html>
