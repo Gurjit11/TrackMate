@@ -1,0 +1,420 @@
+{
+  "shipments": [
+    {
+      "tracking_id": "TM1001",
+      "courier": "SwiftCourier",
+      "order_id": "ORD-5001",
+      "retailer": "ShopSphere",
+      "origin_city": "Mumbai",
+      "destination_city": "Pune",
+      "international": false,
+      "status": "in_transit",
+      "ordered_date": "2026-10-25",
+      "estimated_delivery": "2026-11-05",
+      "as_of_date": "2026-11-02",
+      "delivered_date": null,
+      "customs_hold_started": null,
+      "exception": null,
+      "events": [
+        {"timestamp": "2026-10-26T09:10:00", "location": "Mumbai Hub", "description": "Picked up"},
+        {"timestamp": "2026-11-01T18:40:00", "location": "Pune Sorting Centre", "description": "Arrived at sorting centre"}
+      ]
+    },
+    {
+      "tracking_id": "TM1002",
+      "courier": "SwiftCourier",
+      "order_id": "ORD-5002",
+      "retailer": "ShopSphere",
+      "origin_city": "Mumbai",
+      "destination_city": "Delhi",
+      "international": false,
+      "status": "out_for_delivery",
+      "ordered_date": "2026-10-28",
+      "estimated_delivery": "2026-11-02",
+      "as_of_date": "2026-11-02",
+      "delivered_date": null,
+      "customs_hold_started": null,
+      "exception": null,
+      "events": [
+        {"timestamp": "2026-10-29T10:00:00", "location": "Mumbai Hub", "description": "Picked up"},
+        {"timestamp": "2026-11-01T14:30:00", "location": "Delhi Sorting Centre", "description": "Arrived at destination hub"},
+        {"timestamp": "2026-11-02T08:15:00", "location": "Delhi Delivery Centre", "description": "Out for delivery"}
+      ]
+    },
+    {
+      "tracking_id": "TM1003",
+      "courier": "SwiftCourier",
+      "order_id": "ORD-5003",
+      "retailer": "ShopSphere",
+      "origin_city": "Chennai",
+      "destination_city": "Bengaluru",
+      "international": false,
+      "status": "delivered",
+      "ordered_date": "2026-10-27",
+      "estimated_delivery": "2026-11-02",
+      "as_of_date": "2026-11-02",
+      "delivered_date": "2026-11-01",
+      "customs_hold_started": null,
+      "exception": null,
+      "events": [
+        {"timestamp": "2026-10-28T11:00:00", "location": "Chennai Hub", "description": "Picked up"},
+        {"timestamp": "2026-10-31T16:00:00", "location": "Bengaluru Hub", "description": "Arrived at sorting centre"},
+        {"timestamp": "2026-11-01T15:20:00", "location": "Bengaluru", "description": "Delivered to recipient"}
+      ]
+    },
+    {
+      "tracking_id": "TM1004",
+      "courier": "SwiftCourier",
+      "order_id": "ORD-5004",
+      "retailer": "ShopSphere",
+      "origin_city": "Mumbai",
+      "destination_city": "Hyderabad",
+      "international": false,
+      "status": "in_transit",
+      "ordered_date": "2026-10-24",
+      "estimated_delivery": "2026-10-31",
+      "as_of_date": "2026-11-02",
+      "delivered_date": null,
+      "customs_hold_started": null,
+      "exception": null,
+      "events": [
+        {"timestamp": "2026-10-25T08:30:00", "location": "Mumbai Hub", "description": "Picked up"},
+        {"timestamp": "2026-10-28T12:00:00", "location": "Pune Transit Centre", "description": "In transit"},
+        {"timestamp": "2026-11-01T17:45:00", "location": "Hyderabad Sorting Centre", "description": "Arrived at delivery hub"}
+      ]
+    },
+    {
+      "tracking_id": "TM1005",
+      "courier": "SwiftCourier",
+      "order_id": "ORD-5005",
+      "retailer": "ShopSphere",
+      "origin_city": "Delhi",
+      "destination_city": "Pune",
+      "international": false,
+      "status": "in_transit",
+      "ordered_date": "2026-10-23",
+      "estimated_delivery": "2026-10-30",
+      "as_of_date": "2026-11-02",
+      "delivered_date": null,
+      "customs_hold_started": null,
+      "exception": null,
+      "events": [
+        {"timestamp": "2026-10-24T09:00:00", "location": "Delhi Hub", "description": "Picked up"},
+        {"timestamp": "2026-10-27T18:00:00", "location": "Mumbai Hub", "description": "Transit scan"},
+        {"timestamp": "2026-11-01T19:15:00", "location": "Pune Sorting Centre", "description": "Processing at destination hub"}
+      ]
+    },
+    {
+      "tracking_id": "TM1006",
+      "courier": "SwiftCourier",
+      "order_id": "ORD-5006",
+      "retailer": "ShopSphere",
+      "origin_city": "Bengaluru",
+      "destination_city": "Delhi",
+      "international": false,
+      "status": "in_transit",
+      "ordered_date": "2026-10-20",
+      "estimated_delivery": "2026-10-28",
+      "as_of_date": "2026-11-02",
+      "delivered_date": null,
+      "customs_hold_started": null,
+      "exception": null,
+      "events": [
+        {"timestamp": "2026-10-21T10:00:00", "location": "Bengaluru Hub", "description": "Picked up"},
+        {"timestamp": "2026-10-25T14:00:00", "location": "Nagpur Transit Hub", "description": "In transit"},
+        {"timestamp": "2026-10-31T20:30:00", "location": "Delhi Sorting Centre", "description": "Delayed in transit"}
+      ]
+    },
+    {
+      "tracking_id": "TM1007",
+      "courier": "SwiftCourier",
+      "order_id": "ORD-5007",
+      "retailer": "ShopSphere",
+      "origin_city": "Mumbai",
+      "destination_city": "Chennai",
+      "international": false,
+      "status": "in_transit",
+      "ordered_date": "2026-10-20",
+      "estimated_delivery": "2026-10-30",
+      "as_of_date": "2026-11-02",
+      "delivered_date": null,
+      "customs_hold_started": null,
+      "exception": null,
+      "events": [
+        {"timestamp": "2026-10-21T09:30:00", "location": "Mumbai Hub", "description": "Picked up"},
+        {"timestamp": "2026-10-25T11:20:00", "location": "Pune Hub", "description": "Departed facility"}
+      ]
+    },
+    {
+      "tracking_id": "TM1008",
+      "courier": "SwiftCourier",
+      "order_id": "ORD-5008",
+      "retailer": "ShopSphere",
+      "origin_city": "Delhi",
+      "destination_city": "Bengaluru",
+      "international": false,
+      "status": "in_transit",
+      "ordered_date": "2026-10-21",
+      "estimated_delivery": "2026-10-30",
+      "as_of_date": "2026-11-02",
+      "delivered_date": null,
+      "customs_hold_started": null,
+      "exception": null,
+      "events": [
+        {"timestamp": "2026-10-22T08:45:00", "location": "Delhi Hub", "description": "Picked up"},
+        {"timestamp": "2026-10-26T16:10:00", "location": "Hyderabad Hub", "description": "In transit"}
+      ]
+    },
+    {
+      "tracking_id": "TM1009",
+      "courier": "SwiftCourier",
+      "order_id": "ORD-5009",
+      "retailer": "ShopSphere",
+      "origin_city": "Pune",
+      "destination_city": "Mumbai",
+      "international": false,
+      "status": "delivered",
+      "ordered_date": "2026-10-26",
+      "estimated_delivery": "2026-10-30",
+      "as_of_date": "2026-11-02",
+      "delivered_date": "2026-10-30",
+      "customs_hold_started": null,
+      "exception": null,
+      "events": [
+        {"timestamp": "2026-10-27T10:00:00", "location": "Pune Hub", "description": "Picked up"},
+        {"timestamp": "2026-10-29T18:00:00", "location": "Mumbai Sorting Centre", "description": "Arrived at destination hub"},
+        {"timestamp": "2026-10-30T14:15:00", "location": "Mumbai", "description": "Delivered to mailroom"}
+      ]
+    },
+    {
+      "tracking_id": "TM1010",
+      "courier": "SwiftCourier",
+      "order_id": "ORD-5010",
+      "retailer": "ShopSphere",
+      "origin_city": "Mumbai",
+      "destination_city": "Pune",
+      "international": false,
+      "status": "delivered",
+      "ordered_date": "2026-10-28",
+      "estimated_delivery": "2026-11-01",
+      "as_of_date": "2026-11-02",
+      "delivered_date": "2026-11-01",
+      "customs_hold_started": null,
+      "exception": null,
+      "events": [
+        {"timestamp": "2026-10-29T09:00:00", "location": "Mumbai Hub", "description": "Picked up"},
+        {"timestamp": "2026-10-31T17:30:00", "location": "Pune Sorting Centre", "description": "Arrived at hub"},
+        {"timestamp": "2026-11-01T16:45:00", "location": "Pune", "description": "Delivered to front door"}
+      ]
+    },
+    {
+      "tracking_id": "TM1011",
+      "courier": "SwiftCourier",
+      "order_id": "ORD-5011",
+      "retailer": "ShopSphere",
+      "origin_city": "Chennai",
+      "destination_city": "Hyderabad",
+      "international": false,
+      "status": "in_transit",
+      "ordered_date": "2026-10-22",
+      "estimated_delivery": "2026-10-30",
+      "as_of_date": "2026-11-02",
+      "delivered_date": null,
+      "customs_hold_started": null,
+      "exception": "address_incomplete",
+      "events": [
+        {"timestamp": "2026-10-23T11:00:00", "location": "Chennai Hub", "description": "Picked up"},
+        {"timestamp": "2026-10-28T15:00:00", "location": "Hyderabad Sorting Centre", "description": "Arrived at delivery hub"},
+        {"timestamp": "2026-10-31T10:30:00", "location": "Hyderabad Delivery Centre", "description": "Delivery exception: Incomplete address details"}
+      ]
+    },
+    {
+      "tracking_id": "TM1012",
+      "courier": "SwiftCourier",
+      "order_id": "ORD-5012",
+      "retailer": "ShopSphere",
+      "origin_city": "Mumbai",
+      "destination_city": "Delhi",
+      "international": false,
+      "status": "in_transit",
+      "ordered_date": "2026-10-26",
+      "estimated_delivery": "2026-11-01",
+      "as_of_date": "2026-11-02",
+      "delivered_date": null,
+      "customs_hold_started": null,
+      "exception": "recipient_unavailable",
+      "events": [
+        {"timestamp": "2026-10-27T08:30:00", "location": "Mumbai Hub", "description": "Picked up"},
+        {"timestamp": "2026-10-31T19:00:00", "location": "Delhi Sorting Centre", "description": "Arrived at destination hub"},
+        {"timestamp": "2026-11-01T13:20:00", "location": "Delhi Delivery Centre", "description": "Delivery attempt failed: Recipient unavailable"}
+      ]
+    },
+    {
+      "tracking_id": "TM1013",
+      "courier": "SwiftCourier",
+      "order_id": "ORD-5013",
+      "retailer": "ShopSphere",
+      "origin_city": "Singapore",
+      "destination_city": "Mumbai",
+      "international": true,
+      "status": "in_transit",
+      "ordered_date": "2026-10-25",
+      "estimated_delivery": "2026-11-08",
+      "as_of_date": "2026-11-02",
+      "delivered_date": null,
+      "customs_hold_started": "2026-10-30",
+      "exception": "customs_hold",
+      "events": [
+        {"timestamp": "2026-10-26T14:00:00", "location": "Singapore Changi Hub", "description": "Export clearance completed"},
+        {"timestamp": "2026-10-29T21:00:00", "location": "Mumbai Airport Hub", "description": "Arrived in destination country"},
+        {"timestamp": "2026-10-30T10:15:00", "location": "Mumbai Customs Gateway", "description": "Customs clearance in progress - hold initiated"}
+      ]
+    },
+    {
+      "tracking_id": "TM1014",
+      "courier": "SwiftCourier",
+      "order_id": "ORD-5014",
+      "retailer": "ShopSphere",
+      "origin_city": "Dubai",
+      "destination_city": "Chennai",
+      "international": true,
+      "status": "in_transit",
+      "ordered_date": "2026-10-20",
+      "estimated_delivery": "2026-10-30",
+      "as_of_date": "2026-11-02",
+      "delivered_date": null,
+      "customs_hold_started": "2026-10-26",
+      "exception": "customs_hold",
+      "events": [
+        {"timestamp": "2026-10-21T16:00:00", "location": "Dubai Hub", "description": "Dispatched international flight"},
+        {"timestamp": "2026-10-24T18:00:00", "location": "Chennai Airport Hub", "description": "Arrived at customs gateway"},
+        {"timestamp": "2026-10-26T09:40:00", "location": "Chennai Customs Facility", "description": "Customs clearance held for regulatory review"}
+      ]
+    },
+    {
+      "tracking_id": "TM1015",
+      "courier": "SwiftCourier",
+      "order_id": "ORD-5015",
+      "retailer": "ShopSphere",
+      "origin_city": "Singapore",
+      "destination_city": "Bengaluru",
+      "international": true,
+      "status": "in_transit",
+      "ordered_date": "2026-10-26",
+      "estimated_delivery": "2026-11-06",
+      "as_of_date": "2026-11-02",
+      "delivered_date": null,
+      "customs_hold_started": null,
+      "exception": "customs_documents_required",
+      "events": [
+        {"timestamp": "2026-10-27T12:00:00", "location": "Singapore Changi Hub", "description": "Dispatched abroad"},
+        {"timestamp": "2026-10-30T22:30:00", "location": "Bengaluru Airport Hub", "description": "Arrived in destination country"},
+        {"timestamp": "2026-11-01T11:00:00", "location": "Bengaluru Customs Facility", "description": "Customs exception: Documentation required from recipient"}
+      ]
+    },
+    {
+      "tracking_id": "TM1016",
+      "courier": "SwiftCourier",
+      "order_id": "ORD-5016",
+      "retailer": "ShopSphere",
+      "origin_city": "Mumbai",
+      "destination_city": "Pune",
+      "international": false,
+      "status": "delivered",
+      "ordered_date": "2026-10-26",
+      "estimated_delivery": "2026-10-31",
+      "as_of_date": "2026-11-02",
+      "delivered_date": "2026-10-31",
+      "customs_hold_started": null,
+      "exception": "damaged",
+      "events": [
+        {"timestamp": "2026-10-27T09:00:00", "location": "Mumbai Hub", "description": "Picked up"},
+        {"timestamp": "2026-10-30T17:00:00", "location": "Pune Sorting Centre", "description": "Arrived at local hub"},
+        {"timestamp": "2026-10-31T14:30:00", "location": "Pune", "description": "Delivered - package reported damaged"}
+      ]
+    },
+    {
+      "tracking_id": "TM1017",
+      "courier": "SwiftCourier",
+      "order_id": "ORD-5017",
+      "retailer": "ShopSphere",
+      "origin_city": "Delhi",
+      "destination_city": "Hyderabad",
+      "international": false,
+      "status": "label_created",
+      "ordered_date": "2026-10-29",
+      "estimated_delivery": "2026-11-06",
+      "as_of_date": "2026-11-02",
+      "delivered_date": null,
+      "customs_hold_started": null,
+      "exception": null,
+      "events": [
+        {"timestamp": "2026-10-30T16:20:00", "location": "Delhi", "description": "Shipping label created"}
+      ]
+    },
+    {
+      "tracking_id": "TM1018",
+      "courier": "SwiftCourier",
+      "order_id": "ORD-5018",
+      "retailer": "ShopSphere",
+      "origin_city": "Delhi",
+      "destination_city": "Mumbai",
+      "international": false,
+      "status": "in_transit",
+      "ordered_date": "2026-10-20",
+      "estimated_delivery": "2026-10-27",
+      "as_of_date": "2026-11-02",
+      "delivered_date": null,
+      "customs_hold_started": null,
+      "exception": null,
+      "events": [
+        {"timestamp": "2026-10-21T10:00:00", "location": "Delhi Hub", "description": "Picked up"},
+        {"timestamp": "2026-10-26T15:00:00", "location": "Jaipur Transit Hub", "description": "Delayed due to weather conditions"},
+        {"timestamp": "2026-11-01T12:00:00", "location": "Mumbai Sorting Centre", "description": "Arrived at destination sorting centre"}
+      ]
+    },
+    {
+      "tracking_id": "TM1019",
+      "courier": "SwiftCourier",
+      "order_id": "ORD-5019",
+      "retailer": "ShopSphere",
+      "origin_city": "Bengaluru",
+      "destination_city": "Delhi",
+      "international": false,
+      "status": "in_transit",
+      "ordered_date": "2026-10-15",
+      "estimated_delivery": "2026-10-21",
+      "as_of_date": "2026-11-02",
+      "delivered_date": null,
+      "customs_hold_started": null,
+      "exception": null,
+      "events": [
+        {"timestamp": "2026-10-16T11:00:00", "location": "Bengaluru Hub", "description": "Picked up"},
+        {"timestamp": "2026-10-22T09:00:00", "location": "Nagpur Transit Hub", "description": "In transit"},
+        {"timestamp": "2026-10-30T18:45:00", "location": "Delhi Sorting Centre", "description": "Shipment delayed in transit"}
+      ]
+    },
+    {
+      "tracking_id": "TM1020",
+      "courier": "SwiftCourier",
+      "order_id": "ORD-5020",
+      "retailer": "ShopSphere",
+      "origin_city": "Mumbai",
+      "destination_city": "Chennai",
+      "international": false,
+      "status": "in_transit",
+      "ordered_date": "2026-10-25",
+      "estimated_delivery": "2026-10-31",
+      "as_of_date": "2026-11-02",
+      "delivered_date": null,
+      "customs_hold_started": null,
+      "exception": null,
+      "events": [
+        {"timestamp": "2026-10-26T10:30:00", "location": "Mumbai Hub", "description": "Picked up"},
+        {"timestamp": "2026-10-29T14:00:00", "location": "Bengaluru Transit Hub", "description": "In transit"},
+        {"timestamp": "2026-11-01T17:10:00", "location": "Chennai Sorting Centre", "description": "Arrived at destination hub"}
+      ]
+    }
+  ]
+}
+
