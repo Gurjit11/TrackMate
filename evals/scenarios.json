@@ -1,0 +1,243 @@
+[
+  {
+    "id": 1,
+    "tracking_id": "TM1001",
+    "question": "Where is my package?",
+    "expected_decision": "update",
+    "must_cite": null,
+    "notes": null
+  },
+  {
+    "id": 2,
+    "tracking_id": "TM1002",
+    "question": "When will it arrive?",
+    "expected_decision": "update",
+    "must_cite": null,
+    "notes": null
+  },
+  {
+    "id": 3,
+    "tracking_id": "TM1003",
+    "question": "Is my order delivered?",
+    "expected_decision": "update",
+    "must_cite": null,
+    "notes": null
+  },
+  {
+    "id": 4,
+    "tracking_id": "TM1004",
+    "question": "It's late, what's going on?",
+    "expected_decision": "update",
+    "must_cite": "courier_delivery_policy:1.2",
+    "notes": null
+  },
+  {
+    "id": 5,
+    "tracking_id": "TM1005",
+    "question": "It's 3 days late. Should I worry?",
+    "expected_decision": "update",
+    "must_cite": "courier_delivery_policy:1.2",
+    "notes": null
+  },
+  {
+    "id": 6,
+    "tracking_id": "TM1006",
+    "question": "Why is this so late?",
+    "expected_decision": "escalate",
+    "must_cite": "courier_delivery_policy:1.3",
+    "notes": null
+  },
+  {
+    "id": 7,
+    "tracking_id": "TM1007",
+    "question": "There have been no updates for a week.",
+    "expected_decision": "escalate",
+    "must_cite": "courier_delivery_policy:4.1",
+    "notes": null
+  },
+  {
+    "id": 8,
+    "tracking_id": "TM1008",
+    "question": "The tracking hasn't moved in days.",
+    "expected_decision": "escalate",
+    "must_cite": "courier_delivery_policy:4.1",
+    "notes": null
+  },
+  {
+    "id": 9,
+    "tracking_id": "TM1009",
+    "question": "It says delivered but I never got it.",
+    "expected_decision": "escalate",
+    "must_cite": "courier_delivery_policy:4.2",
+    "notes": null
+  },
+  {
+    "id": 10,
+    "tracking_id": "TM1010",
+    "question": "It says delivered yesterday but I don't have it.",
+    "expected_decision": "update",
+    "must_cite": "courier_delivery_policy:4.2",
+    "notes": null
+  },
+  {
+    "id": 11,
+    "tracking_id": "TM1011",
+    "question": "Why isn't it delivered?",
+    "expected_decision": "ask_info",
+    "must_cite": "courier_delivery_policy:2.2",
+    "notes": null
+  },
+  {
+    "id": 12,
+    "tracking_id": "TM1012",
+    "question": "I missed the delivery. What now?",
+    "expected_decision": "ask_info",
+    "must_cite": "courier_delivery_policy:2.1",
+    "notes": null
+  },
+  {
+    "id": 13,
+    "tracking_id": "TM1013",
+    "question": "Is my international parcel stuck in customs?",
+    "expected_decision": "update",
+    "must_cite": "courier_delivery_policy:3.1",
+    "notes": null
+  },
+  {
+    "id": 14,
+    "tracking_id": "TM1014",
+    "question": "My parcel has been in customs for a week.",
+    "expected_decision": "escalate",
+    "must_cite": "courier_delivery_policy:3.2",
+    "notes": null
+  },
+  {
+    "id": 15,
+    "tracking_id": "TM1015",
+    "question": "Why is customs holding my parcel?",
+    "expected_decision": "ask_info",
+    "must_cite": "courier_delivery_policy:3.3",
+    "notes": null
+  },
+  {
+    "id": 16,
+    "tracking_id": "TM1016",
+    "question": "The item arrived broken.",
+    "expected_decision": "escalate",
+    "must_cite": "courier_delivery_policy:4.3",
+    "notes": null
+  },
+  {
+    "id": 17,
+    "tracking_id": "TM1017",
+    "question": "I ordered 3 days ago and there is nothing.",
+    "expected_decision": "update",
+    "must_cite": "courier_delivery_policy:5.1",
+    "notes": null
+  },
+  {
+    "id": 18,
+    "tracking_id": "TM1018",
+    "question": "It's very delayed. Is it the weather?",
+    "expected_decision": "escalate",
+    "must_cite": "courier_delivery_policy:1.3",
+    "notes": null
+  },
+  {
+    "id": 19,
+    "tracking_id": "TM1019",
+    "question": "Can I get a refund?",
+    "expected_decision": "escalate",
+    "must_cite": "retailer_refund_policy:1.1",
+    "notes": null
+  },
+  {
+    "id": 20,
+    "tracking_id": "TM1020",
+    "question": "Is my parcel delayed?",
+    "expected_decision": "update",
+    "must_cite": "courier_delivery_policy:1.2",
+    "notes": null
+  },
+  {
+    "id": 21,
+    "tracking_id": "TM9999",
+    "question": "Please track this for me.",
+    "expected_decision": "ask_info",
+    "must_cite": null,
+    "notes": null
+  },
+  {
+    "id": 22,
+    "tracking_id": "TM0000",
+    "question": "Where is my order?",
+    "expected_decision": "ask_info",
+    "must_cite": null,
+    "notes": null
+  },
+  {
+    "id": 23,
+    "tracking_id": null,
+    "question": "My parcel is late.",
+    "expected_decision": "ask_info",
+    "must_cite": null,
+    "notes": null
+  },
+  {
+    "id": 24,
+    "tracking_id": "TM1006",
+    "question": "Can you contact the courier for me?",
+    "expected_decision": "escalate",
+    "must_cite": "escalation_policy:1.1",
+    "notes": null
+  },
+  {
+    "id": 25,
+    "tracking_id": "TM1007",
+    "question": "I want my money back.",
+    "expected_decision": "escalate",
+    "must_cite": "retailer_refund_policy:1.1",
+    "notes": "scenario 25 (TM1007, lost, no scan for 8 days) is escalate by rule 3 (no scan 7+ days)"
+  },
+  {
+    "id": 26,
+    "tracking_id": "TM1011",
+    "question": "What do you need from me?",
+    "expected_decision": "ask_info",
+    "must_cite": "courier_delivery_policy:2.2",
+    "notes": null
+  },
+  {
+    "id": 27,
+    "tracking_id": "TM1001",
+    "question": "Is it going to be late?",
+    "expected_decision": "update",
+    "must_cite": null,
+    "notes": null
+  },
+  {
+    "id": 28,
+    "tracking_id": "TM1009",
+    "question": "It says delivered but it isn't here. What are my options?",
+    "expected_decision": "escalate",
+    "must_cite": "courier_delivery_policy:4.2",
+    "notes": null
+  },
+  {
+    "id": 29,
+    "tracking_id": "TM1014",
+    "question": "Please draft a complaint to the courier.",
+    "expected_decision": "escalate",
+    "must_cite": "courier_delivery_policy:3.2",
+    "notes": null
+  },
+  {
+    "id": 30,
+    "tracking_id": "TM1004",
+    "question": "Should I ask for a refund?",
+    "expected_decision": "update",
+    "must_cite": "retailer_refund_policy:4.1",
+    "notes": "scenario 30 (TM1004, 2 days late) is update because a refund is not yet allowed (refund needs more than 10 days past estimate), so it should cite retailer_refund_policy:4.1"
+  }
+]
+
