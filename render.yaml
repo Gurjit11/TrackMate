@@ -10,7 +10,7 @@ services:
       - key: GOOGLE_API_KEY
         sync: false
       - key: GEMINI_MODEL
-        value: models/gemini-2.5-flash
+        value: models/gemini-3.8-flash
       - key: GEMINI_EMBEDDING_MODEL
         value: models/gemini-embedding-001
       - key: DELIVERY_MODE

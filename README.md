@@ -85,7 +85,7 @@ pip install -r requirements.txt
 Create a `.env` file based on `.env.example`:
 ```env
 GOOGLE_API_KEY=your_gemini_api_key
-GEMINI_MODEL=models/gemini-2.5-flash
+GEMINI_MODEL=models/gemini-3.8-flash
 GEMINI_EMBEDDING_MODEL=models/gemini-embedding-001
 
 # Default: approvals are recorded but nothing is sent.
