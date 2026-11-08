@@ -175,16 +175,20 @@ Navigate to `http://127.0.0.1:8000/docs` in your browser for interactive API doc
 
 The evaluation suite consists of 30 hand-written test scenarios (`evals/scenarios.json`) covering standard inquiries, customs issues, missing records, damaged goods, and delivery delays.
 
+The latest recorded run completed 6 of 30 scenarios; the remaining 24 ended in errors. The figures below describe only the completed cases and are not full-suite results.
+
 | Metric | Score | Details |
 |---|---|---|
-| **Decision Accuracy** | TBD (from evals/results.md) | TBD (from evals/results.md) |
-| **Escalate Recall** | **TBD (from evals/results.md)** | TBD (from evals/results.md) |
-| **Update Recall** | TBD (from evals/results.md) | TBD (from evals/results.md) |
-| **Ask Info Recall** | TBD (from evals/results.md) | TBD (from evals/results.md) |
-| **Citation Validity** | TBD (from evals/results.md) | TBD (from evals/results.md) |
-| **Citation Relevance** | TBD (from evals/results.md) | TBD (from evals/results.md) |
-| **Missing-Data Handling** | TBD (from evals/results.md) | TBD (from evals/results.md) |
-| **Average Latency** | TBD (from evals/results.md) | TBD (from evals/results.md) |
+| **Decision Accuracy** | 100.00% | 6 / 6 completed scenarios |
+| **Escalate Recall** | **100.00%** | 1 / 1 completed escalate scenarios |
+| **Update Recall** | 100.00% | 5 / 5 completed update scenarios |
+| **Ask Info Recall** | N/A | No ask-info scenarios completed |
+| **Citation Validity** | 100.00% | 8 / 8 cited clauses in completed scenarios |
+| **Citation Relevance** | 100.00% | 4 / 4 completed scenarios with a required clause |
+| **Missing-Data Handling** | N/A | 0 / 3 applicable scenarios completed |
+| **Average Latency** | 10.25s | Per completed scenario (6 scenarios) |
+
+These are partial-run measurements; see [`evals/results.md`](evals/results.md) for the run status and per-case details.
 
 To run the evaluation:
 ```bash
