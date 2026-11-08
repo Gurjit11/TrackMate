@@ -120,6 +120,14 @@ uvicorn app.main:app --reload
 ```
 Navigate to `http://127.0.0.1:8000/docs` in your browser for interactive API documentation and endpoint testing.
 
+### Deploy on Render (Free)
+1. Push this repository to GitHub and open [Render](https://render.com/).
+2. Choose **New > Blueprint**, connect `Gurjit11/TrackMate`, and select the `main` branch. Render will use the checked-in `render.yaml`.
+3. Enter your Gemini API key when prompted for `GOOGLE_API_KEY`, then deploy. The policy index is built during deployment, so the key is needed at build time as well as runtime.
+4. Open the deployed service URL and confirm `https://<your-service>.onrender.com/health` returns `{"status":"ok"}`.
+
+The Blueprint uses Render's free web-service plan and keeps delivery in `dry_run`; no email or WhatsApp messages will be sent. Free services can sleep when idle and their local filesystem is ephemeral, so traces, drafts, and other runtime-generated local files are not durable and may be cleared on restart or redeploy. The app is intended as a demo on this plan, not for production or sensitive customer data.
+
 ---
 
 ## 4. Example Run (an example from a development run)
