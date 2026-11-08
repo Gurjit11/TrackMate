@@ -588,6 +588,8 @@
               class="w-full rounded-lg border border-slate-800 bg-slate-900/60 px-4 py-3 text-sm text-slate-200 placeholder:text-slate-600 focus:border-indigo-400/60 focus:outline-none focus:ring-2 focus:ring-indigo-500/10" />
           </div>
 
+          <p id="user-tracking-error" role="alert" aria-live="polite" class="hidden text-sm text-rose-300"></p>
+
         </form>
 
         <!-- Quick Sample Chips for Demonstration -->
@@ -619,6 +621,25 @@
             </button>
           </div>
         </div>
+
+        <form onsubmit="handleEmailIntake(event)" class="relative z-10 mt-5 space-y-3 rounded-xl border border-slate-800 bg-slate-950/40 p-4">
+          <div>
+            <label for="user-email-file" class="block text-xs font-semibold text-slate-200">Investigate a forwarded order email</label>
+            <p class="mt-1 text-[11px] leading-relaxed text-slate-500">Upload an .eml file. The message is processed for this investigation and is not stored as an attachment.</p>
+          </div>
+          <div class="grid gap-3 sm:grid-cols-2">
+            <input id="user-email-file" name="file" type="file" accept=".eml,message/rfc822" required
+              class="block w-full text-xs text-slate-400 file:mr-3 file:rounded-lg file:border-0 file:bg-slate-800 file:px-3 file:py-2 file:text-xs file:font-semibold file:text-slate-200 hover:file:bg-slate-700" />
+            <input id="user-email-tracking" name="tracking_id" type="text" placeholder="Tracking ID if not in the email"
+              class="w-full rounded-lg border border-slate-800 bg-slate-900/60 px-3 py-2 text-sm text-slate-200 placeholder:text-slate-600 focus:border-indigo-400/60 focus:outline-none focus:ring-2 focus:ring-indigo-500/10" />
+          </div>
+          <div class="flex flex-col gap-3 sm:flex-row">
+            <input id="user-email-question" name="question" type="text" maxlength="500" placeholder="Optional: what should we investigate?"
+              class="min-w-0 flex-1 rounded-lg border border-slate-800 bg-slate-900/60 px-3 py-2 text-sm text-slate-200 placeholder:text-slate-600 focus:border-indigo-400/60 focus:outline-none focus:ring-2 focus:ring-indigo-500/10" />
+            <button type="submit" class="shrink-0 rounded-lg border border-indigo-400/25 bg-indigo-500/10 px-4 py-2 text-xs font-semibold text-indigo-200 transition-colors hover:bg-indigo-500/20">Review email</button>
+          </div>
+          <p id="user-email-intake-status" role="status" class="hidden text-xs text-slate-400"></p>
+        </form>
 
       </div>
 
@@ -1155,6 +1176,20 @@
                   <pre id="dev-draft-body"
                     class="mt-1 p-3 rounded-xl bg-slate-900/90 border border-slate-800 text-xs font-mono text-slate-300 whitespace-pre-wrap max-h-48 overflow-y-auto">No draft generated for this decision.</pre>
                 </div>
+                <div>
+                  <label for="dev-draft-recipient" class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Recipient</label>
+                  <input id="dev-draft-recipient" type="text" autocomplete="off" placeholder="Email address or +country-code phone"
+                    class="mt-1 w-full rounded-lg border border-slate-800 bg-slate-900 px-3 py-2 text-xs text-slate-200 placeholder:text-slate-600 focus:border-indigo-400/60 focus:outline-none focus:ring-2 focus:ring-indigo-500/10" />
+                </div>
+                <label id="dev-whatsapp-optin-row" class="hidden items-start gap-2 text-[11px] leading-relaxed text-slate-400">
+                  <input id="dev-whatsapp-optin" type="checkbox" class="mt-0.5 accent-emerald-500" />
+                  <span>I confirm this recipient has opted in to WhatsApp messages.</span>
+                </label>
+                <div id="dev-approval-token-row" class="hidden">
+                  <label for="dev-approval-token" class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Live approval token</label>
+                  <input id="dev-approval-token" type="password" autocomplete="off" placeholder="Required only when live delivery is enabled"
+                    class="mt-1 w-full rounded-lg border border-slate-800 bg-slate-900 px-3 py-2 text-xs text-slate-200 placeholder:text-slate-600 focus:border-indigo-400/60 focus:outline-none focus:ring-2 focus:ring-indigo-500/10" />
+                </div>
               </div>
             </div>
 
@@ -1657,6 +1692,36 @@
       document.getElementById('user-track-btn').click();
     }
 
+    async function handleEmailIntake(event) {
+      event.preventDefault();
+      const form = event.currentTarget;
+      const fileInput = document.getElementById('user-email-file');
+      const status = document.getElementById('user-email-intake-status');
+      const file = fileInput.files && fileInput.files[0];
+      if (!file) return;
+      const payload = new FormData();
+      payload.append('file', file);
+      const trackingId = document.getElementById('user-email-tracking').value.trim();
+      const question = document.getElementById('user-email-question').value.trim();
+      if (trackingId) payload.append('tracking_id', trackingId);
+      if (question) payload.append('question', question);
+
+      status.classList.remove('hidden');
+      status.innerText = 'Reading the email and investigating the delivery…';
+      try {
+        const response = await fetch('/intake/email', { method: 'POST', body: payload });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.detail || 'Email intake failed.');
+        const displayId = data.tracking_id || 'Email intake';
+        renderUserTrackingResult(data, displayId);
+        status.innerText = `Review ready${data.tracking_id ? ` for ${data.tracking_id}` : ''}.`;
+        form.reset();
+      } catch (error) {
+        status.innerText = error.message;
+        status.className = 'text-xs text-rose-300';
+      }
+    }
+
     async function handleUserTrackingSubmit(event) {
       event.preventDefault();
       const trackingId = document.getElementById('user-input-tracking').value.trim().toUpperCase();
@@ -1665,7 +1730,13 @@
 
       document.getElementById('user-tracking-result').classList.add('hidden');
       document.getElementById('user-tracking-loading').classList.remove('hidden');
-      document.getElementById('user-track-btn').disabled = true;
+      const trackButton = document.getElementById('user-track-btn');
+      const trackButtonLabel = trackButton.querySelector('span');
+      const trackingError = document.getElementById('user-tracking-error');
+      trackingError.classList.add('hidden');
+      trackingError.innerText = '';
+      trackButton.disabled = true;
+      trackButtonLabel.innerText = 'Investigating...';
 
       try {
         const resp = await fetch('/investigate', {
@@ -1682,10 +1753,13 @@
         const data = await resp.json();
         renderUserTrackingResult(data, trackingId);
       } catch (err) {
+        trackingError.innerText = `${err.message || 'Unable to retrieve package status.'} Please try again. If this keeps happening, check the app server logs.`;
+        trackingError.classList.remove('hidden');
         showToast(err.message, "error");
       } finally {
         document.getElementById('user-tracking-loading').classList.add('hidden');
-        document.getElementById('user-track-btn').disabled = false;
+        trackButton.disabled = false;
+        trackButtonLabel.innerText = 'Find package';
       }
     }
 
@@ -1696,7 +1770,8 @@
       document.getElementById('user-card-tid').innerText = trackingId;
       document.getElementById('user-card-reply').innerText = data.reply_to_user;
 
-      const shipment = shipmentsData.find(s => s.tracking_id.toUpperCase() === trackingId.toUpperCase());
+      const normalizedTrackingId = (trackingId || '').toUpperCase();
+      const shipment = shipmentsData.find(s => s.tracking_id.toUpperCase() === normalizedTrackingId);
       const statusPill = document.getElementById('user-card-status');
       const routeText = document.getElementById('user-card-route');
       const estDate = document.getElementById('user-card-est-date');
@@ -1751,7 +1826,7 @@
         setUserStepDots(2);
         resBox.className = "p-4 rounded-xl flex items-start space-x-3 bg-rose-500/10 border border-rose-500/20 text-rose-300 text-xs";
         resTitle.innerText = "Escalated to Courier Operations Desk";
-        resDesc.innerText = "Due to significant delay or transit hold, an official support inquiry has been raised with the carrier on your behalf.";
+        resDesc.innerText = "A courier-support draft is ready for human review. No message is sent before approval.";
       } else { // ask_info
         statusPill.className = "px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-amber-500/20 text-amber-400 border border-amber-500/30";
         statusPill.innerText = "Action Required";
@@ -1889,14 +1964,20 @@
         document.getElementById('dev-draft-channel').innerText = draft.channel.toUpperCase();
         document.getElementById('dev-draft-subject').innerText = draft.subject || "(No Subject)";
         document.getElementById('dev-draft-body').innerText = draft.body;
+        document.getElementById('dev-draft-recipient').value = draft.recipient || '';
+        document.getElementById('dev-whatsapp-optin-row').classList.toggle('hidden', draft.channel !== 'whatsapp');
+        document.getElementById('dev-approval-token-row').classList.toggle('hidden', draft.status !== 'pending_approval');
         document.getElementById('dev-draft-status').innerText = `Status: ${draft.status}`;
-        document.getElementById('dev-draft-status').className = "text-xs font-mono " + (draft.status === 'approved' ? "text-emerald-400 font-bold" : "text-amber-400");
-        approveBtn.disabled = draft.status === 'approved';
-        approveBtn.innerHTML = draft.status === 'approved'
-          ? '<svg class="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><span>Approved & Sent</span>'
+        document.getElementById('dev-draft-status').className = "text-xs font-mono " + (draft.delivery_status === 'sent' ? "text-emerald-400 font-bold" : "text-amber-400");
+        approveBtn.disabled = draft.status !== 'pending_approval';
+        approveBtn.innerHTML = draft.status !== 'pending_approval'
+          ? '<svg class="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><span>Already approved</span>'
           : '<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><span>Approve & Dispatch</span>';
       } else {
         activeDraftId = null;
+        document.getElementById('dev-draft-recipient').value = '';
+        document.getElementById('dev-whatsapp-optin-row').classList.add('hidden');
+        document.getElementById('dev-approval-token-row').classList.add('hidden');
         document.getElementById('dev-draft-channel').innerText = "NONE";
         document.getElementById('dev-draft-subject').innerText = "None";
         document.getElementById('dev-draft-body').innerText = "No draft generated (Update decisions do not dispatch messages per G1 policy).";
@@ -1963,6 +2044,7 @@
                 <span class="w-5 h-5 rounded-full bg-slate-800 text-slate-300 font-mono text-[10px] flex items-center justify-center font-bold">${idx + 1}</span>
                 <span class="font-bold text-white">${isTool ? 'Tool Call:' : 'Action:'}</span>
                 <span class="font-mono px-2 py-0.5 rounded border ${toolBadgeColor} font-semibold">${isTool ? s.tool : 'final'}</span>
+                <span class="text-slate-500">${s.role || ''}</span>
               </div>
               <span class="font-mono text-slate-400 text-[11px]">${s.llm_latency_ms || 0}ms</span>
             </div>
@@ -1987,17 +2069,29 @@
       btn.disabled = true;
 
       try {
-        const resp = await fetch(`/approve/${activeDraftId}`, { method: 'POST' });
-        if (!resp.ok) throw new Error("Approval request failed");
+        const headers = { 'Content-Type': 'application/json' };
+        const approvalToken = document.getElementById('dev-approval-token').value;
+        if (approvalToken) headers.Authorization = `Bearer ${approvalToken}`;
+        const resp = await fetch(`/approve/${activeDraftId}`, {
+          method: 'POST',
+          headers,
+          body: JSON.stringify({
+            recipient: document.getElementById('dev-draft-recipient').value.trim() || null,
+            whatsapp_opt_in: document.getElementById('dev-whatsapp-optin').checked
+          })
+        });
         const data = await resp.json();
+        if (!resp.ok) throw new Error(data.detail || "Approval request failed");
 
         confetti({ particleCount: 90, spread: 60, origin: { y: 0.7 } });
 
-        document.getElementById('dev-draft-status').innerText = `Status: approved`;
+        const deliveryStatus = data.delivery_status || 'approved';
+        document.getElementById('dev-draft-status').innerText = `Status: ${deliveryStatus}`;
         document.getElementById('dev-draft-status').className = "text-xs font-mono text-emerald-400 font-bold";
-        btn.innerHTML = '<svg class="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><span>Approved & Sent</span>';
+        btn.innerHTML = '<svg class="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><span>Approved</span>';
 
-        showToast("Draft approved! Appended to outbox.jsonl", "success");
+        document.getElementById('dev-approval-token').value = '';
+        showToast(deliveryStatus === 'sent' ? 'Approved and sent.' : 'Approved in dry-run mode; not sent.', "success");
       } catch (err) {
         btn.disabled = false;
         showToast("Approval failed: " + err.message, "error");

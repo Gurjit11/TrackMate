@@ -1,13 +1,17 @@
 import json
+import hmac
+import os
 from pathlib import Path
 from typing import Any, Optional
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import FastAPI, File, Form, Header, HTTPException, Query, UploadFile
 from fastapi.responses import HTMLResponse
 from pydantic import BaseModel, Field, field_validator
 
 from app.agent import run_agent
+from app.delivery import DeliveryConfigurationError, DeliveryError, DeliveryNotAllowed, delivery_mode
 from app.drafts import approve_draft, create_draft
-from app.trace import load_trace
+from app.email_intake import MAX_EMAIL_BYTES, parse_forwarded_email
+from app.trace import load_trace, save_trace
 from app.tools import get_weather
 from app.data_access import load_shipments, compute_derived_fields
 
@@ -32,6 +36,36 @@ class InvestigateRequest(BaseModel):
         return v
 
 
+class ApprovalRequest(BaseModel):
+    recipient: Optional[str] = Field(default=None, max_length=254)
+    whatsapp_opt_in: bool = False
+
+
+def _create_result_draft(result: Any, recipient: Optional[str] = None) -> Optional[dict[str, Any]]:
+    if result.final.draft_message is None:
+        return None
+    draft_recipient = recipient
+    if result.final.draft_message.channel == "email" and result.final.decision == "escalate":
+        draft_recipient = draft_recipient or os.getenv("COURIER_SUPPORT_EMAIL")
+    record = create_draft(
+        run_id=result.run_id,
+        channel=result.final.draft_message.channel,
+        subject=result.final.draft_message.subject,
+        body=result.final.draft_message.body,
+        recipient=draft_recipient,
+    )
+    trace = load_trace(result.run_id)
+    if trace is not None:
+        trace["draft"] = {
+            "draft_id": record["draft_id"],
+            "channel": record["channel"],
+            "recipient": record.get("recipient"),
+            "status": record["status"],
+        }
+        save_trace(trace)
+    return record
+
+
 @app.get("/", response_class=HTMLResponse)
 def index() -> HTMLResponse:
     """Serve the TrackMate frontend application."""
@@ -49,22 +83,7 @@ def health() -> dict[str, str]:
 @app.post("/investigate")
 def investigate(req: InvestigateRequest) -> dict[str, Any]:
     result = run_agent(req.tracking_id, req.question)
-
-    draft_data = None
-    if result.final.draft_message is not None:
-        draft_record = create_draft(
-            run_id=result.run_id,
-            channel=result.final.draft_message.channel,
-            subject=result.final.draft_message.subject,
-            body=result.final.draft_message.body,
-        )
-        draft_data = {
-            "draft_id": draft_record["draft_id"],
-            "channel": draft_record["channel"],
-            "subject": draft_record["subject"],
-            "body": draft_record["body"],
-            "status": draft_record["status"],
-        }
+    draft_record = _create_result_draft(result)
 
     return {
         "run_id": result.run_id,
@@ -72,7 +91,44 @@ def investigate(req: InvestigateRequest) -> dict[str, Any]:
         "reply_to_user": result.final.reply_to_user,
         "citations": [c.model_dump() for c in result.final.citations],
         "missing_info": result.final.missing_info,
-        "draft": draft_data,
+        "draft": draft_record,
+        "guardrail_flags": result.guardrail_flags,
+    }
+
+
+@app.post("/intake/email")
+async def intake_email(
+    file: UploadFile = File(...),
+    tracking_id: Optional[str] = Form(default=None, max_length=100),
+    question: Optional[str] = Form(default=None, max_length=500),
+) -> dict[str, Any]:
+    if not file.filename or Path(file.filename).suffix.casefold() != ".eml":
+        raise HTTPException(status_code=415, detail="Upload a forwarded email saved as a .eml file.")
+    raw_message = await file.read(MAX_EMAIL_BYTES + 1)
+    await file.close()
+    parsed = parse_forwarded_email(raw_message)
+    resolved_tracking_id = (tracking_id or parsed["tracking_id"] or "").strip().upper() or None
+    email_context = parsed["question"]
+    resolved_question = (
+        f"Customer request: {question.strip()}\n\nForwarded email:\n{email_context}"
+        if question and question.strip()
+        else email_context
+    )
+    result = run_agent(resolved_tracking_id, resolved_question, source="email")
+    draft_recipient = (
+        os.getenv("COURIER_SUPPORT_EMAIL")
+        if result.final.decision == "escalate"
+        else parsed["sender"]
+    )
+    draft_record = _create_result_draft(result, recipient=draft_recipient)
+    return {
+        "run_id": result.run_id,
+        "tracking_id": resolved_tracking_id,
+        "decision": result.final.decision,
+        "reply_to_user": result.final.reply_to_user,
+        "citations": [citation.model_dump() for citation in result.final.citations],
+        "missing_info": result.final.missing_info,
+        "draft": draft_record,
         "guardrail_flags": result.guardrail_flags,
     }
 
@@ -86,8 +142,32 @@ def get_trace(run_id: str) -> dict[str, Any]:
 
 
 @app.post("/approve/{draft_id}")
-def approve(draft_id: str) -> dict[str, Any]:
-    record = approve_draft(draft_id)
+def approve(
+    draft_id: str,
+    request: ApprovalRequest,
+    authorization: Optional[str] = Header(default=None),
+) -> dict[str, Any]:
+    try:
+        is_live = delivery_mode() == "live"
+    except DeliveryConfigurationError as error:
+        raise HTTPException(status_code=503, detail=str(error)) from error
+    if is_live:
+        expected = os.getenv("APPROVAL_TOKEN")
+        supplied = authorization.removeprefix("Bearer ").strip() if authorization else ""
+        if not expected or not hmac.compare_digest(supplied, expected):
+            raise HTTPException(status_code=401, detail="A valid approval token is required.")
+    try:
+        record = approve_draft(
+            draft_id,
+            recipient=request.recipient,
+            whatsapp_opt_in=request.whatsapp_opt_in,
+        )
+    except DeliveryNotAllowed as error:
+        raise HTTPException(status_code=422, detail=str(error)) from error
+    except DeliveryConfigurationError as error:
+        raise HTTPException(status_code=503, detail=str(error)) from error
+    except DeliveryError as error:
+        raise HTTPException(status_code=502, detail=str(error)) from error
     if record is None:
         raise HTTPException(status_code=404, detail="draft not found")
     return record

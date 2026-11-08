@@ -2,7 +2,7 @@ from typing import Literal, Optional
 from pydantic import BaseModel, Field
 
 Decision = Literal["update", "ask_info", "escalate"]
-ToolName = Literal["get_shipment", "search_policies", "get_weather"]  # get_weather is unused until M5
+ToolName = Literal["get_shipment", "search_policies", "get_weather", "get_route_disruptions"]
 
 class Citation(BaseModel):
     doc: str
@@ -36,3 +36,6 @@ class AgentResult(BaseModel):
     final: FinalAnswer
     guardrail_flags: list[str] = Field(default_factory=list)
 
+
+class PolicyResearchPlan(BaseModel):
+    query: str = Field(min_length=3, max_length=300)

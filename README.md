@@ -1,13 +1,15 @@
 # TrackMate
 
-TrackMate is an automated delivery investigation agent that analyzes package delivery inquiries, cross-references internal shipment event tracking, and verifies applicable courier and retailer policies. It autonomously determines whether to provide an update, ask for additional information, or escalate an issue for human attention. When escalation or user follow-up is necessary, TrackMate drafts an appropriate message and holds it for human approval before execution.
+TrackMate is a delivery investigation assistant with three coordinated roles: a shipment investigator, a policy researcher, and a resolution specialist. It can investigate a tracking ID from the local demo shipment dataset or a forwarded `.eml` order email, retrieve applicable courier and retailer policies, and check weather and route context. It then recommends an update, a request for information, or escalation. Follow-up messages and courier-support requests remain drafts until a human approves them.
 
 ---
 
 ## 1. Honest Scope
 - **Simulated Shipment Data:** All shipment records and tracking scan events are mock data loaded from local JSON (`data/mock_shipments.json`). All shipments operate relative to a simulated anchor date of `2026-11-02`.
-- **Dry-Run Message Dispatch:** No real emails or WhatsApp messages are ever transmitted. Approved communications are appended to a local log file (`outbox.jsonl`) flagged as `"delivery": "dry_run_not_sent"`.
-- **Live Weather via Open-Meteo:** Historical weather queries call the live Open-Meteo API. If dates are unavailable or external requests fail, the agent marks weather data as unavailable and proceeds without affecting decision logic.
+- **Human-Approved Delivery:** Dispatch defaults to dry-run and never sends without an explicit approval action. SMTP email and Twilio WhatsApp delivery can be enabled by configuring credentials and `DELIVERY_MODE=live`; WhatsApp approval also requires an explicit opt-in confirmation. Provider outcomes are recorded in the draft and `outbox.jsonl`.
+- **Email Intake:** Forward an order email by saving it as `.eml` and uploading it from the tracking page. TrackMate processes the plain-text body and does not retain the uploaded file.
+- **Shipment and Route Data:** Shipment records are local mock data. Route advisories are also explicitly simulated; neither source represents live carrier or road conditions.
+- **Live Weather via Open-Meteo:** Historical weather queries call the live Open-Meteo API. If dates are unavailable or external requests fail, the agent marks weather data as unavailable and proceeds without affecting the decision logic.
 
 ---
 
@@ -21,13 +23,17 @@ User Request (tracking_id, question)
    [ FastAPI: POST /investigate ]
                │
                ▼
-     Agent Loop (app/agent.py)
+     Coordinated Agent Roles
    ┌───────────┴───────────┐
-   │ Tool Execution        │
-   │ - get_shipment        │
-   │ - search_policies     │
-   │ - get_weather         │
+   │ Shipment Investigator │
+   │ - mock shipment data  │
+   │ - weather + route     │
    └───────────┬───────────┘
+               ▼
+      Policy Researcher
+      - policy retrieval
+               ▼
+     Resolution Specialist
                │
                ▼
      Python Guardrails (G1 - G5)
@@ -42,7 +48,8 @@ User Request (tracking_id, question)
    [ POST /approve/{draft_id} ]
                │
                ▼
-  outbox.jsonl ("dry_run_not_sent")
+  SMTP / Twilio (live only when configured)
+  or outbox.jsonl (dry-run default)
 ```
 
 ### Deterministic Python Guardrails
@@ -80,7 +87,28 @@ Create a `.env` file based on `.env.example`:
 GOOGLE_API_KEY=your_gemini_api_key
 GEMINI_MODEL=models/gemini-2.5-flash
 GEMINI_EMBEDDING_MODEL=models/gemini-embedding-001
+
+# Default: approvals are recorded but nothing is sent.
+DELIVERY_MODE=dry_run
+COURIER_SUPPORT_EMAIL=
+APPROVAL_TOKEN=
+
+# Optional SMTP delivery; used only after human approval in live mode.
+SMTP_HOST=
+SMTP_PORT=587
+SMTP_USERNAME=
+SMTP_PASSWORD=
+SMTP_FROM=
+SMTP_STARTTLS=true
+SMTP_USE_SSL=false
+
+# Optional Twilio WhatsApp delivery; used only after human approval in live mode.
+TWILIO_ACCOUNT_SID=
+TWILIO_AUTH_TOKEN=
+TWILIO_WHATSAPP_FROM=
 ```
+
+To enable live dispatch, configure the matching provider settings, set a strong `APPROVAL_TOKEN`, and change `DELIVERY_MODE` to `live`. Keep `.env` private. The approval screen requires the token; WhatsApp dispatch additionally requires confirming recipient opt-in. Email intake extracts the sender address for an information-request draft, while escalation drafts go to `COURIER_SUPPORT_EMAIL` when configured. Without live credentials, approved drafts remain in dry-run mode.
 
 ### Build Knowledge Base & Run Server
 ```bash

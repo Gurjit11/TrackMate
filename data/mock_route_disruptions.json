@@ -1,0 +1,20 @@
+{
+  "disruptions": [
+    {
+      "origin_city": "Mumbai",
+      "destination_city": "Pune",
+      "type": "road_maintenance",
+      "severity": "moderate",
+      "description": "Simulated road maintenance advisory on the Mumbai–Pune corridor.",
+      "active": true
+    },
+    {
+      "origin_city": "Delhi",
+      "destination_city": "Jaipur",
+      "type": "traffic_advisory",
+      "severity": "low",
+      "description": "Simulated traffic advisory on the Delhi–Jaipur corridor.",
+      "active": true
+    }
+  ]
+}

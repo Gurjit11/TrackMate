@@ -1,7 +1,11 @@
 from typing import Any
 import httpx
+import json
+from pathlib import Path
 from app.data_access import get_shipment_with_derived, normalize_tracking_id
 from app.rag import search
+
+ROUTE_DISRUPTIONS_PATH = Path(__file__).resolve().parent.parent / "data" / "mock_route_disruptions.json"
 
 
 def get_shipment(tracking_id: str) -> dict[str, Any]:
@@ -20,6 +24,28 @@ def get_shipment(tracking_id: str) -> dict[str, Any]:
 def search_policies(query: str) -> dict[str, Any]:
     results = search(query)
     return {"results": results}
+
+
+def get_route_disruptions(origin_city: str, destination_city: str) -> dict[str, Any]:
+    """Look up explicitly simulated route advisories for a shipment corridor."""
+    with ROUTE_DISRUPTIONS_PATH.open(encoding="utf-8") as file:
+        feed = json.load(file)
+
+    origin = origin_city.strip().casefold()
+    destination = destination_city.strip().casefold()
+    disruptions = [
+        item
+        for item in feed["disruptions"]
+        if item.get("active")
+        and item["origin_city"].strip().casefold() == origin
+        and item["destination_city"].strip().casefold() == destination
+    ]
+    return {
+        "source": "simulated",
+        "origin_city": origin_city,
+        "destination_city": destination_city,
+        "disruptions": disruptions,
+    }
 
 
 def get_weather(city: str, start_date: str, end_date: str) -> dict[str, Any]:
